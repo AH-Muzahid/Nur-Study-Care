@@ -1,36 +1,1012 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Nur Study Care - Coaching Center Management System
 
-## Getting Started
+A full-stack web application for managing coaching centers with student enrollment, course management, payment processing, and administrative features.
 
-First, run the development server:
+## 🚀 Tech Stack
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+### Frontend
+- **Next.js 15** (App Router, React Server Components)
+- **React 19**
+- **Tailwind CSS** + **shadcn/ui** (Component Library)
+- **Zustand** (Client State Management)
+- **TanStack Query** (Server State & Caching)
+- **React Hook Form** + **Zod** (Form Validation)
+
+### Backend
+- **Next.js API Routes** (RESTful API)
+- **MongoDB** + **Mongoose** (Database & ODM)
+- **Custom JWT Auth** (Authentication)
+- **OAuth 2.0** (Google & Facebook Social Login)
+- **Redis** (Token Blacklist & Rate Limiting)
+
+### DevOps & Tools
+- **Vercel** (Deployment)
+- **MongoDB Atlas** (Database Hosting)
+- **Upstash Redis** (Redis Cloud)
+- **Cloudinary** (Image Storage)
+- **Pino** (Logging)
+
+---
+
+## ✨ Features (Phase 1)
+
+### 🔐 Authentication & Authorization
+- ✅ Email/Password registration and login
+- ✅ Google OAuth 2.0 social login
+- ✅ Facebook OAuth 2.0 social login
+- ✅ JWT-based authentication (access + refresh tokens)
+- ✅ Role-based access control (Student, Teacher, Admin)
+- ✅ Password reset functionality
+- ✅ Account lockout after failed attempts
+- ✅ Rate limiting on auth endpoints
+- ✅ CSRF protection
+
+### 👨‍🎓 Student Management
+- ✅ Student profile creation with auto-generated ID (STU-2026-0001)
+- ✅ Personal information (name, contact, education details)
+- ✅ Guardian information
+- ✅ Enrollment history tracking
+- ✅ Payment history
+- ✅ Student dashboard
+
+### 👨‍🏫 Teacher Management
+- ✅ Teacher profile with qualifications
+- ✅ Subject assignment
+- ✅ Course assignment
+- ✅ Salary management
+- ✅ Teacher dashboard
+
+### 📚 Course & Batch Management
+- ✅ Course creation with auto-generated ID (CRS-2026-0001)
+- ✅ Multiple batches per course (embedded documents)
+- ✅ Batch scheduling (day, time, capacity)
+- ✅ Course fees management
+- ✅ Syllabus upload
+- ✅ Student enrollment in batches
+- ✅ Capacity tracking
+
+### 📝 Enrollment System
+- ✅ Course enrollment with auto-generated ID (ENR-2026-000001)
+- ✅ Enrollment status tracking (Pending, Active, Completed)
+- ✅ Fee tracking (total, paid, due)
+- ✅ Basic attendance marking
+- ✅ Grades tracking
+- ✅ Atomic transactions (enrollment + payment)
+
+### 💰 Payment & Billing
+- ✅ Mock payment gateway (Cash, bKash, Nagad)
+- ✅ Payment history with auto-generated ID (PAY-2026-00000001)
+- ✅ Transaction logging
+- ✅ Payment status tracking
+- ✅ Due amount calculation
+- ✅ Payment receipts
+- ✅ Ready for real gateway integration
+
+### 🕐 Class Schedule & Timetable
+- ✅ Weekly timetable generation
+- ✅ Student schedule view
+- ✅ Teacher schedule view
+- ✅ Conflict detection
+- ✅ Calendar view
+- ✅ Export to PDF
+
+### 🔔 Notice Board
+- ✅ Notice creation with auto-generated ID (NOT-2026-00001)
+- ✅ Target audience filtering (Student/Teacher/All)
+- ✅ Course-specific notices
+- ✅ Publish/expiry dates
+- ✅ File attachments
+- ✅ Mark as read functionality
+- ✅ Text search
+
+### 📊 Admin Dashboard
+- ✅ Revenue reports (by month, payment method)
+- ✅ Enrollment statistics (by course, status)
+- ✅ Student performance analytics
+- ✅ Teacher statistics
+- ✅ Real-time metrics
+- ✅ Charts and visualizations
+
+### 🔒 Security Features
+- ✅ Bcrypt password hashing (12 rounds)
+- ✅ JWT token blacklisting
+- ✅ Rate limiting on sensitive endpoints
+- ✅ Input validation with Zod
+- ✅ XSS protection
+- ✅ CSRF tokens
+- ✅ SQL injection prevention (Mongoose parameterization)
+- ✅ IP tracking
+- ✅ Account lockout mechanism
+
+### ⚡ Performance Optimizations
+- ✅ MongoDB compound indexes
+- ✅ Redis caching
+- ✅ API response caching
+- ✅ Code splitting & lazy loading
+- ✅ Image optimization (Next.js Image)
+- ✅ Text search indexes
+- ✅ Aggregation pipelines for analytics
+
+---
+
+## 📁 Folder Structure
+
+```
+nur-study-care/
+├── src/
+│   ├── app/                          # Next.js App Router
+│   │   ├── (auth)/                   # Auth pages (login, register)
+│   │   │   ├── login/
+│   │   │   │   └── page.js
+│   │   │   ├── register/
+│   │   │   │   └── page.js
+│   │   │   └── layout.js
+│   │   ├── (dashboard)/              # Protected dashboard routes
+│   │   │   ├── student/
+│   │   │   │   ├── dashboard/page.js
+│   │   │   │   ├── courses/page.js
+│   │   │   │   ├── payments/page.js
+│   │   │   │   └── schedule/page.js
+│   │   │   ├── teacher/
+│   │   │   │   ├── dashboard/page.js
+│   │   │   │   ├── classes/page.js
+│   │   │   │   └── students/page.js
+│   │   │   ├── admin/
+│   │   │   │   ├── dashboard/page.js
+│   │   │   │   ├── students/page.js
+│   │   │   │   ├── teachers/page.js
+│   │   │   │   ├── courses/page.js
+│   │   │   │   ├── payments/page.js
+│   │   │   │   └── notices/page.js
+│   │   │   └── layout.js
+│   │   ├── api/                      # API Routes
+│   │   │   ├── auth/
+│   │   │   │   ├── login/route.js
+│   │   │   │   ├── register/route.js
+│   │   │   │   ├── refresh/route.js
+│   │   │   │   ├── logout/route.js
+│   │   │   │   ├── google/
+│   │   │   │   │   ├── route.js
+│   │   │   │   │   └── callback/route.js
+│   │   │   │   └── facebook/
+│   │   │   │       ├── route.js
+│   │   │   │       └── callback/route.js
+│   │   │   ├── students/
+│   │   │   │   ├── route.js
+│   │   │   │   └── [id]/route.js
+│   │   │   ├── teachers/
+│   │   │   │   ├── route.js
+│   │   │   │   └── [id]/route.js
+│   │   │   ├── courses/
+│   │   │   │   ├── route.js
+│   │   │   │   ├── [id]/route.js
+│   │   │   │   └── [id]/enroll/route.js
+│   │   │   ├── enrollments/
+│   │   │   │   ├── route.js
+│   │   │   │   └── [id]/route.js
+│   │   │   ├── payments/
+│   │   │   │   ├── route.js
+│   │   │   │   ├── create/route.js
+│   │   │   │   └── history/route.js
+│   │   │   ├── notices/
+│   │   │   │   ├── route.js
+│   │   │   │   └── [id]/route.js
+│   │   │   ├── schedule/route.js
+│   │   │   └── analytics/
+│   │   │       ├── revenue/route.js
+│   │   │       └── enrollment/route.js
+│   │   ├── providers.js              # React Query Provider
+│   │   ├── layout.js
+│   │   ├── page.js
+│   │   └── error.js
+│   ├── components/
+│   │   ├── ui/                       # shadcn/ui components
+│   │   ├── layout/
+│   │   │   ├── Header.jsx
+│   │   │   ├── Sidebar.jsx
+│   │   │   └── Footer.jsx
+│   │   ├── auth/
+│   │   │   ├── LoginForm.jsx
+│   │   │   ├── RegisterForm.jsx
+│   │   │   └── SocialLoginButtons.jsx
+│   │   ├── student/
+│   │   │   ├── StudentList.jsx
+│   │   │   ├── StudentCard.jsx
+│   │   │   └── StudentForm.jsx
+│   │   ├── teacher/
+│   │   ├── course/
+│   │   │   ├── CourseList.jsx
+│   │   │   ├── CourseCard.jsx
+│   │   │   ├── CourseForm.jsx
+│   │   │   └── BatchSchedule.jsx
+│   │   ├── payment/
+│   │   │   ├── PaymentForm.jsx
+│   │   │   └── PaymentHistory.jsx
+│   │   ├── schedule/
+│   │   │   ├── WeeklyCalendar.jsx
+│   │   │   └── ClassCard.jsx
+│   │   ├── notice/
+│   │   │   ├── NoticeList.jsx
+│   │   │   └── NoticeCard.jsx
+│   │   ├── dashboard/
+│   │   │   ├── StatCard.jsx
+│   │   │   ├── RevenueChart.jsx
+│   │   │   └── EnrollmentChart.jsx
+│   │   └── shared/
+│   ├── lib/
+│   │   ├── mongoose.js               # MongoDB connection
+│   │   ├── redis.js                  # Redis connection
+│   │   ├── cloudinary.js             # Cloudinary setup
+│   │   ├── logger.js                 # Pino logger
+│   │   ├── utils.js                  # Utility functions
+│   │   ├── validations.js            # Zod schemas
+│   │   └── auth/
+│   │       ├── secure-jwt-service.js # JWT logic
+│   │       ├── social-auth-service.js # OAuth logic
+│   │       └── password-service.js   # Password utilities
+│   ├── models/                       # Mongoose schemas
+│   │   ├── User.js
+│   │   ├── Student.js
+│   │   ├── Teacher.js
+│   │   ├── Course.js
+│   │   ├── Enrollment.js
+│   │   ├── Payment.js
+│   │   └── Notice.js
+│   ├── services/                     # Business logic layer
+│   │   ├── authService.js
+│   │   ├── studentService.js
+│   │   ├── teacherService.js
+│   │   ├── courseService.js
+│   │   ├── enrollmentService.js
+│   │   ├── paymentService.js
+│   │   ├── noticeService.js
+│   │   ├── scheduleService.js
+│   │   └── analyticsService.js
+│   ├── repositories/                 # Data access layer
+│   │   ├── studentRepository.js
+│   │   ├── teacherRepository.js
+│   │   ├── courseRepository.js
+│   │   ├── enrollmentRepository.js
+│   │   ├── paymentRepository.js
+│   │   └── noticeRepository.js
+│   ├── hooks/                        # Custom React hooks
+│   │   ├── useAuth.js
+│   │   ├── useCourses.js
+│   │   ├── useEnrollments.js
+│   │   ├── usePayments.js
+│   │   └── useNotices.js
+│   ├── store/                        # Zustand stores
+│   │   ├── authStore.js
+│   │   ├── noticeStore.js
+│   │   └── index.js
+│   ├── constants/                    # Constants & enums
+│   │   ├── roles.js
+│   │   ├── permissions.js
+│   │   └── config.js
+│   ├── middleware.js                 # Next.js middleware
+│   └── styles/
+│       └── globals.css
+├── public/
+│   ├── images/
+│   └── documents/
+├── scripts/
+│   └── seed.js                       # Database seeding
+├── .env.local                        # Environment variables
+├── .env.example                      # Environment template
+├── .gitignore
+├── next.config.js
+├── tailwind.config.js
+├── jsconfig.json
+├── package.json
+└── README.md
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## 🛠️ Step-by-Step Implementation Plan
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### **Phase 1.1: Project Setup & Foundation (Week 1)**
 
-## Learn More
+#### Step 1: Initialize Next.js Project
+```bash
+# Create Next.js app with latest version
+npx create-next-app@latest nur-study-care
 
-To learn more about Next.js, take a look at the following resources:
+# Options:
+# ✅ TypeScript? No (using JavaScript)
+# ✅ ESLint? Yes
+# ✅ Tailwind CSS? Yes
+# ✅ src/ directory? Yes
+# ✅ App Router? Yes
+# ✅ import alias (@/*)? Yes
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+#### Step 2: Install Dependencies
+```bash
+# Core dependencies
+npm install mongoose jsonwebtoken bcryptjs
+npm install googleapis
+npm install zod react-hook-form @hookform/resolvers
+npm install zustand
+npm install @tanstack/react-query
+npm install date-fns
+npm install redis
+npm install pino pino-pretty
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# UI & Styling
+npx shadcn-ui@latest init
+npx shadcn-ui@latest add button card input label form table dialog dropdown-menu avatar badge calendar select textarea toast
 
-## Deploy on Vercel
+# Optional
+npm install recharts                    # Charts for dashboard
+npm install dompurify isomorphic-dompurify  # XSS protection
+npm install react-dropzone                  # File uploads
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+#### Step 3: Configure Project Files
+- Create `jsconfig.json` with path aliases
+- Setup `next.config.js` with image domains, security headers
+- Configure `tailwind.config.js` with custom colors
+- Create `.env.example` template
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+#### Step 4: Setup Folder Structure
+- Create all folders as per structure above
+- Create placeholder files for organization
+
+---
+
+### **Phase 1.2: Database & Models (Week 1)**
+
+#### Step 5: MongoDB Connection Setup
+- Create `lib/mongoose.js` with singleton pattern
+- Handle connection pooling
+- Add development/production environment handling
+
+#### Step 6: Create Mongoose Models
+Priority order:
+1. **User Model** (base for all users)
+   - Role enum (STUDENT, TEACHER, ADMIN)
+   - Social auth fields (googleId, facebookId)
+   - Password hashing middleware
+   - Validation & indexes
+
+2. **Student Model**
+   - Reference to User
+   - Auto-generated studentId
+   - Personal & guardian info
+   - Education details
+
+3. **Teacher Model**
+   - Reference to User
+   - Auto-generated teacherId
+   - Qualifications array
+   - Salary & bank details
+
+4. **Course Model**
+   - Auto-generated courseId
+   - Embedded batches array
+   - Schedule, capacity, fees
+   - Text search indexes
+
+5. **Enrollment Model**
+   - Auto-generated enrollmentId
+   - References to Student & Course
+   - Fee tracking (total, paid, due)
+   - Attendance & grades arrays
+
+6. **Payment Model**
+   - Auto-generated paymentId
+   - References to Student & Enrollment
+   - Payment method enum
+   - Gateway response storage
+
+7. **Notice Model**
+   - Auto-generated noticeId
+   - Target audience array
+   - Publish/expiry dates
+   - Viewed by tracking
+
+---
+
+### **Phase 1.3: Authentication System (Week 2)**
+
+#### Step 7: Custom JWT Authentication
+- Create `lib/auth/secure-jwt-service.js`
+  - Password hashing (bcrypt 12 rounds)
+  - Access token generation (15min expiry)
+  - Refresh token generation (7 days expiry)
+  - Token verification
+  - Token blacklisting (Redis)
+  - Rate limiting logic
+  - Account lockout logic
+
+#### Step 8: Auth API Routes
+- `api/auth/register/route.js` - User registration
+- `api/auth/login/route.js` - User login with rate limiting
+- `api/auth/refresh/route.js` - Refresh access token
+- `api/auth/logout/route.js` - Logout with token blacklist
+
+#### Step 9: Social Login Integration
+- Create `lib/auth/social-auth-service.js`
+  - Google OAuth setup
+  - Facebook OAuth setup
+  - Find-or-create user logic
+
+- Create OAuth routes:
+  - `api/auth/google/route.js` - Redirect to Google
+  - `api/auth/google/callback/route.js` - Handle callback
+  - `api/auth/facebook/route.js` - Redirect to Facebook
+  - `api/auth/facebook/callback/route.js` - Handle callback
+
+#### Step 10: Authentication Middleware
+- Create `middleware.js`
+  - JWT verification
+  - Role-based access control
+  - CSRF protection
+  - Route protection patterns
+
+#### Step 11: Auth UI Components
+- `components/auth/LoginForm.jsx` - Email/password login
+- `components/auth/RegisterForm.jsx` - Registration form
+- `components/auth/SocialLoginButtons.jsx` - Google/Facebook buttons
+- `app/(auth)/login/page.js` - Login page
+- `app/(auth)/register/page.js` - Register page
+
+---
+
+### **Phase 1.4: Core Services & Repositories (Week 2)**
+
+#### Step 12: Repository Layer (Data Access)
+- `repositories/studentRepository.js` - CRUD operations
+- `repositories/courseRepository.js` - CRUD operations
+- `repositories/enrollmentRepository.js` - CRUD operations
+- `repositories/paymentRepository.js` - CRUD operations
+- `repositories/noticeRepository.js` - CRUD operations
+
+#### Step 13: Service Layer (Business Logic)
+- `services/studentService.js`
+  - Create student with auto ID
+  - Update student profile
+  - Get student with enrollments
+
+- `services/courseService.js`
+  - Create course with batches
+  - Update batch capacity
+  - Check batch availability
+
+- `services/enrollmentService.js`
+  - Enroll student (with transactions)
+  - Update enrollment status
+  - Track attendance & grades
+
+- `services/paymentService.js`
+  - Process payment (mock gateway)
+  - Update enrollment paid amount
+  - Generate payment history
+
+---
+
+### **Phase 1.5: Student Management (Week 3)**
+
+#### Step 14: Student API Routes
+- `api/students/route.js` - GET (list), POST (create)
+- `api/students/[id]/route.js` - GET, PUT, DELETE
+- Add role-based access control (Admin only for create/delete)
+
+#### Step 15: Student UI Components
+- `components/student/StudentList.jsx` - Table with pagination
+- `components/student/StudentCard.jsx` - Profile card
+- `components/student/StudentForm.jsx` - Create/edit form
+- `app/(dashboard)/student/dashboard/page.js` - Student dashboard
+- `app/(dashboard)/admin/students/page.js` - Admin student management
+
+---
+
+### **Phase 1.6: Course & Batch Management (Week 3)**
+
+#### Step 16: Course API Routes
+- `api/courses/route.js` - GET (list), POST (create)
+- `api/courses/[id]/route.js` - GET, PUT, DELETE
+- `api/courses/[id]/enroll/route.js` - POST (enroll student)
+- Add capacity validation
+
+#### Step 17: Course UI Components
+- `components/course/CourseList.jsx` - Grid view with filters
+- `components/course/CourseCard.jsx` - Course details card
+- `components/course/CourseForm.jsx` - Create/edit form
+- `components/course/BatchSchedule.jsx` - Schedule builder
+- `app/(dashboard)/admin/courses/page.js` - Admin course management
+- `app/(dashboard)/student/courses/page.js` - Student course browsing
+
+---
+
+### **Phase 1.7: Enrollment & Payment (Week 4)**
+
+#### Step 18: Enrollment API Routes
+- `api/enrollments/route.js` - GET (list), POST (create)
+- `api/enrollments/[id]/route.js` - GET, PUT
+- Implement Mongoose transactions for atomic operations
+
+#### Step 19: Payment API Routes
+- `api/payments/route.js` - GET (history)
+- `api/payments/create/route.js` - POST (process payment)
+- `api/payments/history/route.js` - GET (student payment history)
+- Integrate mock payment gateway
+
+#### Step 20: Payment UI Components
+- `components/payment/PaymentForm.jsx` - Payment method selection
+- `components/payment/PaymentHistory.jsx` - Transaction history table
+- `app/(dashboard)/student/payments/page.js` - Student payments
+- `app/(dashboard)/admin/payments/page.js` - Admin payment management
+
+---
+
+### **Phase 1.8: Schedule & Timetable (Week 4)**
+
+#### Step 21: Schedule Service
+- `services/scheduleService.js`
+  - Generate weekly timetable from batches
+  - Get student schedule
+  - Get teacher schedule
+  - Detect conflicts
+
+#### Step 22: Schedule API Routes
+- `api/schedule/route.js` - GET (fetch schedules)
+- Query params: studentId, teacherId, date
+
+#### Step 23: Schedule UI Components
+- `components/schedule/WeeklyCalendar.jsx` - Calendar view
+- `components/schedule/ClassCard.jsx` - Individual class card
+- `app/(dashboard)/student/schedule/page.js` - Student schedule
+- `app/(dashboard)/teacher/schedule/page.js` - Teacher schedule
+
+---
+
+### **Phase 1.9: Notice Board (Week 5)**
+
+#### Step 24: Notice Service
+- `services/noticeService.js`
+  - Create notice with auto ID
+  - Filter by target audience
+  - Mark as viewed
+  - Text search
+
+#### Step 25: Notice API Routes
+- `api/notices/route.js` - GET (list with filters), POST (create)
+- `api/notices/[id]/route.js` - GET, PUT, DELETE
+- Add text search endpoint
+
+#### Step 26: Notice UI Components
+- `components/notice/NoticeList.jsx` - Card grid with filters
+- `components/notice/NoticeCard.jsx` - Individual notice
+- `app/(dashboard)/admin/notices/page.js` - Admin notice management
+- `app/(dashboard)/student/dashboard/page.js` - Show recent notices
+
+---
+
+### **Phase 1.10: Admin Dashboard & Analytics (Week 5)**
+
+#### Step 27: Analytics Service
+- `services/analyticsService.js`
+  - MongoDB aggregation pipelines
+  - Revenue reports (by month, method)
+  - Enrollment statistics
+  - Student performance analytics
+  - Teacher statistics
+
+#### Step 28: Analytics API Routes
+- `api/analytics/revenue/route.js` - GET (revenue data)
+- `api/analytics/enrollment/route.js` - GET (enrollment stats)
+- Add date range filters
+
+#### Step 29: Dashboard UI Components
+- `components/dashboard/StatCard.jsx` - Metric card
+- `components/dashboard/RevenueChart.jsx` - Line/bar chart
+- `components/dashboard/EnrollmentChart.jsx` - Pie/doughnut chart
+- `app/(dashboard)/admin/dashboard/page.js` - Admin dashboard
+- `app/(dashboard)/teacher/dashboard/page.js` - Teacher dashboard
+
+---
+
+### **Phase 1.11: State Management & Data Fetching (Week 6)**
+
+#### Step 30: Zustand Stores
+- `store/authStore.js` - Auth state (user, isAuthenticated)
+- `store/noticeStore.js` - Notices state
+- `store/index.js` - Combined exports
+
+#### Step 31: TanStack Query Setup
+- `app/providers.js` - QueryClientProvider
+- Configure default options (staleTime, cacheTime)
+
+#### Step 32: Custom Hooks
+- `hooks/useAuth.js` - Auth operations
+- `hooks/useCourses.js` - Course queries & mutations
+- `hooks/useEnrollments.js` - Enrollment operations
+- `hooks/usePayments.js` - Payment operations
+- `hooks/useNotices.js` - Notice operations
+- Add optimistic updates for mutations
+
+---
+
+### **Phase 1.12: Security & Optimizations (Week 6)**
+
+#### Step 33: Security Hardening
+- Input validation with Zod (`lib/validations.js`)
+- XSS protection with DOMPurify
+- Rate limiting with Redis
+- CSRF token generation
+- API error handling wrapper (`lib/api-handler.js`)
+- Error boundaries (`app/error.js`)
+- Logging setup (`lib/logger.js`)
+
+#### Step 34: Performance Optimizations
+- MongoDB compound indexes
+- API response caching (Cache-Control headers)
+- Dynamic imports for heavy components
+- Next.js Image optimization
+- Code splitting with React.lazy
+
+#### Step 35: File Upload Setup
+- Cloudinary integration (`lib/cloudinary.js`)
+- Upload API route (`api/upload/route.js`)
+- Image upload component
+
+---
+
+### **Phase 1.13: Testing & Deployment (Week 7)**
+
+#### Step 36: Environment Configuration
+- Create `.env.example` with all variables
+- Setup MongoDB Atlas cluster (M0 free tier)
+- Setup Upstash Redis account
+- Setup Cloudinary account
+- Get Google OAuth credentials
+- Get Facebook OAuth credentials
+
+#### Step 37: Database Seeding
+- Create seed script (`scripts/seed.js`)
+- Add demo admin user
+- Add sample courses
+- Add sample students
+
+#### Step 38: Deployment
+- Connect GitHub repository to Vercel
+- Configure environment variables in Vercel
+- Add custom domain
+- Test production build
+- Monitor with Vercel Analytics
+
+---
+
+## 🔧 Environment Variables
+
+Create `.env.local` file in root:
+
+```env
+# App
+NODE_ENV=development
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+
+# MongoDB
+MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/coaching_center?retryWrites=true&w=majority
+
+# JWT
+JWT_SECRET=your-super-secret-jwt-key-min-32-characters
+JWT_REFRESH_SECRET=your-super-secret-refresh-key-min-32-characters
+JWT_ACCESS_EXPIRY=15m
+JWT_REFRESH_EXPIRY=7d
+
+# OAuth - Google
+GOOGLE_CLIENT_ID=your-google-client-id.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=your-google-client-secret
+GOOGLE_REDIRECT_URI=http://localhost:3000/api/auth/google/callback
+
+# OAuth - Facebook
+FACEBOOK_CLIENT_ID=your-facebook-app-id
+FACEBOOK_CLIENT_SECRET=your-facebook-app-secret
+FACEBOOK_REDIRECT_URI=http://localhost:3000/api/auth/facebook/callback
+
+# Redis (Upstash)
+REDIS_URL=redis://default:password@host:port
+REDIS_TOKEN=your-redis-token
+
+# Cloudinary
+CLOUDINARY_CLOUD_NAME=your-cloud-name
+CLOUDINARY_API_KEY=your-api-key
+CLOUDINARY_API_SECRET=your-api-secret
+
+# Email (Optional - for password reset)
+RESEND_API_KEY=your-resend-api-key
+EMAIL_FROM=noreply@yourdomain.com
+
+# Payment Gateway (for future)
+BKASH_APP_KEY=your-bkash-app-key
+BKASH_APP_SECRET=your-bkash-app-secret
+BKASH_USERNAME=your-bkash-username
+BKASH_PASSWORD=your-bkash-password
+BKASH_BASE_URL=https://checkout.sandbox.bka.sh
+
+NAGAD_MERCHANT_ID=your-nagad-merchant-id
+NAGAD_PUBLIC_KEY=your-nagad-public-key
+NAGAD_PRIVATE_KEY=your-nagad-private-key
+NAGAD_BASE_URL=http://sandbox.mynagad.com:10080
+```
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js 18+ installed
+- MongoDB Atlas account (or local MongoDB)
+- Git installed
+
+### Installation
+
+```bash
+# 1. Clone the repository
+git clone <repository-url>
+cd nur-study-care
+
+# 2. Install dependencies
+npm install
+
+# 3. Setup environment variables
+cp .env.example .env.local
+# Edit .env.local with your credentials
+
+# 4. Seed the database (optional)
+npm run seed
+
+# 5. Run development server
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000)
+
+### Default Admin Credentials (after seeding)
+```
+Email: admin@nurstudycare.com
+Password: Admin@123
+```
+
+---
+
+## 📝 Development Workflow
+
+### Create New Feature
+```bash
+# 1. Create model (if needed)
+touch src/models/YourModel.js
+
+# 2. Create repository
+touch src/repositories/yourRepository.js
+
+# 3. Create service
+touch src/services/yourService.js
+
+# 4. Create API route
+touch src/app/api/your-route/route.js
+
+# 5. Create UI components
+touch src/components/your-feature/YourComponent.jsx
+
+# 6. Create page
+touch src/app/(dashboard)/your-page/page.js
+
+# 7. Add to navigation/menu
+```
+
+### Git Workflow
+```bash
+# Create feature branch
+git checkout -b feature/your-feature-name
+
+# Make changes and commit
+git add .
+git commit -m "feat: your feature description"
+
+# Push and create PR
+git push origin feature/your-feature-name
+```
+
+---
+
+## 📚 API Documentation
+
+### Authentication Endpoints
+
+```
+POST /api/auth/register          - Register new user
+POST /api/auth/login             - Login with email/password
+POST /api/auth/refresh           - Refresh access token
+POST /api/auth/logout            - Logout and blacklist token
+GET  /api/auth/google            - Initiate Google OAuth
+GET  /api/auth/google/callback   - Google OAuth callback
+GET  /api/auth/facebook          - Initiate Facebook OAuth
+GET  /api/auth/facebook/callback - Facebook OAuth callback
+```
+
+### Student Endpoints
+```
+GET    /api/students             - List all students (Admin)
+POST   /api/students             - Create student (Admin)
+GET    /api/students/[id]        - Get student by ID
+PUT    /api/students/[id]        - Update student (Admin)
+DELETE /api/students/[id]        - Delete student (Admin)
+```
+
+### Course Endpoints
+```
+GET    /api/courses              - List all courses
+POST   /api/courses              - Create course (Admin)
+GET    /api/courses/[id]         - Get course by ID
+PUT    /api/courses/[id]         - Update course (Admin)
+DELETE /api/courses/[id]         - Delete course (Admin)
+POST   /api/courses/[id]/enroll  - Enroll student
+```
+
+### Payment Endpoints
+```
+GET    /api/payments             - Get payment history
+POST   /api/payments/create      - Process payment
+GET    /api/payments/history     - Student payment history
+```
+
+### Notice Endpoints
+```
+GET    /api/notices              - List notices
+POST   /api/notices              - Create notice (Admin)
+GET    /api/notices/[id]         - Get notice by ID
+PUT    /api/notices/[id]         - Update notice (Admin)
+DELETE /api/notices/[id]         - Delete notice (Admin)
+```
+
+### Analytics Endpoints
+```
+GET    /api/analytics/revenue    - Revenue reports
+GET    /api/analytics/enrollment - Enrollment statistics
+```
+
+---
+
+## 🧪 Testing
+
+```bash
+# Run tests (to be setup)
+npm run test
+
+# Run e2e tests
+npm run test:e2e
+
+# Coverage report
+npm run test:coverage
+```
+
+---
+
+## 🚢 Deployment
+
+### Vercel Deployment
+```bash
+# Install Vercel CLI
+npm i -g vercel
+
+# Deploy
+vercel
+
+# Production deployment
+vercel --prod
+```
+
+### Environment Variables in Vercel
+1. Go to Vercel Dashboard → Project Settings → Environment Variables
+2. Add all variables from `.env.local`
+3. Redeploy
+
+---
+
+## 🤝 Ownership Transfer Process
+
+### Step 1: Database Transfer
+```bash
+# Export MongoDB data
+mongodump --uri="your_connection_string" --out=./backup
+
+# Import to client's MongoDB
+mongorestore --uri="client_connection_string" ./backup
+```
+
+### Step 2: Update Environment Variables
+```bash
+# Update .env.local with client's:
+# - MongoDB URI
+# - OAuth credentials
+# - Redis URL
+# - Cloudinary credentials
+```
+
+### Step 3: Transfer Vercel Project
+1. Vercel Dashboard → Settings → Transfer Project
+2. Enter client's email
+3. Client accepts transfer
+
+### Step 4: Transfer GitHub Repository
+1. GitHub Repository → Settings → Transfer ownership
+2. Enter client's username
+3. Client accepts transfer
+
+---
+
+## 📞 Support & Maintenance
+
+### Common Issues
+
+**MongoDB Connection Error**
+```bash
+# Check if MongoDB URI is correct
+# Ensure IP is whitelisted in MongoDB Atlas
+# Check network connectivity
+```
+
+**JWT Token Expired**
+```bash
+# Use refresh token endpoint to get new access token
+# POST /api/auth/refresh
+```
+
+**Rate Limit Exceeded**
+```bash
+# Wait 15 minutes or contact admin
+# Check Redis connection
+```
+
+---
+
+## 🔐 Security Best Practices
+
+1. **Never commit `.env.local` to git**
+2. **Use strong JWT secrets** (min 32 characters)
+3. **Enable 2FA for production accounts**
+4. **Regular security audits**
+5. **Keep dependencies updated**
+6. **Monitor logs for suspicious activity**
+7. **Backup database regularly**
+8. **Use HTTPS in production**
+
+---
+
+## 📈 Roadmap (Phase 2)
+
+- [ ] Advanced attendance system with biometric integration
+- [ ] Assignment & exam management
+- [ ] Live class integration (Zoom/Google Meet)
+- [ ] Study materials library
+- [ ] Chat system (student-teacher)
+- [ ] SMS/Email notifications
+- [ ] Mobile app (React Native)
+- [ ] Advanced analytics & reporting
+- [ ] Certificate generation
+- [ ] Parent portal
+- [ ] Online exam proctoring
+- [ ] AI-powered doubt solving
+
+---
+
+## 📄 License
+
+This project is proprietary and confidential. Unauthorized copying or distribution is prohibited.
+
+---
+
+## 👨‍💻 Developer
+
+Built with ❤️ for Nur Study Care
+
+**Contact:** [Your Contact Information]
+
+---
+
+**Version:** 1.0.0  
+**Last Updated:** January 22, 2026
