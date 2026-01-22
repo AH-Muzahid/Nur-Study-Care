@@ -2,272 +2,291 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { StatCard } from '@/components/ui/stat-card'
-import { BookOpen, Calendar, CreditCard, GraduationCap } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { BookOpen, Calendar, CreditCard, GraduationCap, Clock, Bell } from 'lucide-react'
+import Link from 'next/link'
+
+// Mock data
+const mockData = {
+    stats: {
+        enrolledCourses: 4,
+        upcomingClasses: 12,
+        attendance: 85,
+        duePayment: 2500,
+    },
+    courses: [
+        {
+            id: 1,
+            title: 'HSC Physics',
+            batch: 'Morning Batch',
+            nextClass: 'Today 8:00 AM',
+            teacher: 'Dr. Rahman',
+            status: 'Active',
+        },
+        {
+            id: 2,
+            title: 'HSC Chemistry',
+            batch: 'Evening Batch',
+            nextClass: 'Tomorrow 4:00 PM',
+            teacher: 'Prof. Karim',
+            status: 'Active',
+        },
+        {
+            id: 3,
+            title: 'HSC Mathematics',
+            batch: 'Morning Batch',
+            nextClass: 'Friday 9:00 AM',
+            teacher: 'Mr. Ali',
+            status: 'Active',
+        },
+    ],
+    todaySchedule: [
+        {
+            id: 1,
+            course: 'HSC Physics',
+            time: '8:00 AM - 10:00 AM',
+            teacher: 'Dr. Rahman',
+            room: 'Room 201',
+        },
+        {
+            id: 2,
+            course: 'HSC Chemistry',
+            time: '4:00 PM - 6:00 PM',
+            teacher: 'Prof. Karim',
+            room: 'Room 105',
+        },
+    ],
+    notices: [
+        {
+            id: 1,
+            title: 'Holiday Notice - Winter Break',
+            date: '2 days ago',
+            type: 'holiday',
+        },
+        {
+            id: 2,
+            title: 'Exam Schedule Published',
+            date: '5 days ago',
+            type: 'exam',
+        },
+        {
+            id: 3,
+            title: 'New Batch Starting - SSC English',
+            date: '1 week ago',
+            type: 'general',
+        },
+    ],
+    recentPayments: [
+        {
+            id: 1,
+            course: 'HSC Physics',
+            amount: 2000,
+            date: '15 Jan 2026',
+            status: 'Paid',
+        },
+        {
+            id: 2,
+            course: 'HSC Chemistry',
+            amount: 2500,
+            date: 'Due: 25 Jan 2026',
+            status: 'Pending',
+        },
+    ],
+}
 
 export default function StudentDashboard() {
     return (
         <div className="space-y-6">
+            {/* Header */}
             <div>
                 <h1 className="text-3xl font-bold text-gray-900">Student Dashboard</h1>
-                <p className="text-gray-500 mt-1">Welcome back! Here's your overview.</p>
+                <p className="text-gray-500 mt-1">Welcome back! Here&apos;s your overview.</p>
             </div>
 
+            {/* Stats Cards */}
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
                 <StatCard
                     title="Enrolled Courses"
-                    value="4"
+                    value={mockData.stats.enrolledCourses}
                     description="Active courses"
                     icon={<BookOpen className="h-4 w-4" />}
                 />
                 <StatCard
                     title="Upcoming Classes"
-                    value="12"
+                    value={mockData.stats.upcomingClasses}
                     description="This week"
                     icon={<Calendar className="h-4 w-4" />}
                 />
                 <StatCard
                     title="Attendance"
-                    value="85%"
+                    value={`${mockData.stats.attendance}%`}
                     description="Overall attendance"
                     icon={<GraduationCap className="h-4 w-4" />}
                 />
                 <StatCard
                     title="Due Payment"
-                    value="৳2,500"
+                    value={`৳${mockData.stats.duePayment.toLocaleString()}`}
                     description="Pending amount"
                     icon={<CreditCard className="h-4 w-4" />}
                 />
             </div>
 
-            <div className="grid gap-6 lg:grid-cols-2">
-                <Card>
-                    <CardHeader>
+            {/* Main Content Grid */}
+            <div className="grid gap-6 lg:grid-cols-3">
+                {/* My Courses - Takes 2 columns */}
+                <Card className="lg:col-span-2">
+                    <CardHeader className="flex flex-row items-center justify-between">
                         <CardTitle>My Courses</CardTitle>
+                        <Link href="/student/courses">
+                            <Button variant="outline" size="sm">
+                                View All
+                            </Button>
+                        </Link>
                     </CardHeader>
                     <CardContent>
-                        <div className="space-y-3">
-                            {[1, 2, 3].map((i) => (
-                                <div key={i} className="flex items-center justify-between border-b pb-3 last:border-0">
-                                    <div>
-                                        <p className="font-medium">Physics HSC Batch</p>
-                                        <p className="text-sm text-gray-500">Next class: Today 3:00 PM</p>
+                        <div className="space-y-4">
+                            {mockData.courses.map((course) => (
+                                <div
+                                    key={course.id}
+                                    className="flex items-center justify-between border rounded-lg p-4 hover:bg-gray-50 transition-colors"
+                                >
+                                    <div className="flex items-start gap-4">
+                                        <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                                            <BookOpen className="h-6 w-6 text-blue-600" />
+                                        </div>
+                                        <div>
+                                            <p className="font-semibold text-gray-900">{course.title}</p>
+                                            <p className="text-sm text-gray-600">{course.batch}</p>
+                                            <p className="text-xs text-gray-500 mt-1">
+                                                Teacher: {course.teacher}
+                                            </p>
+                                            <p className="text-xs text-blue-600 mt-1 flex items-center gap-1">
+                                                <Clock className="h-3 w-3" />
+                                                Next class: {course.nextClass}
+                                            </p>
+                                        </div>
                                     </div>
-                                    <span className="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Active</span>
-                                </div>
-                            ))}
-                        </div>
-                    </CardContent>
-                </Card>
-
-                <Card>
-                    <CardHeader>
-                        <CardTitle>Recent Notices</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <div className="space-y-3">
-                            {[1, 2, 3].map((i) => (
-                                <div key={i} className="border-b pb-3 last:border-0">
-                                    <p className="font-medium text-sm">Holiday Notice - Winter Break</p>
-                                    <p className="text-xs text-gray-500">Posted 2 days ago</p>
-                                </div>
-                            ))}
-                        </div>
-                    </CardContent>
-                </Card>
-            </div>
-        </div>
-    )
-}
-const router = useRouter()
-const { user } = useAuthStore()
-
-// Fetch student profile
-const { data: profile } = useQuery({
-    queryKey: ['student', 'profile'],
-    queryFn: async () => {
-        const res = await fetch('/api/students/me', {
-            credentials: 'include',
-        })
-        if (!res.ok) throw new Error('Failed to fetch profile')
-        const data = await res.json()
-        return data.data
-    },
-})
-
-// Fetch enrollments
-const { data: enrollments, isLoading } = useQuery({
-    queryKey: ['enrollments', 'my'],
-    queryFn: async () => {
-        const res = await fetch('/api/enrollments?limit=10', {
-            credentials: 'include',
-        })
-        if (!res.ok) throw new Error('Failed to fetch enrollments')
-        const data = await res.json()
-        return data.data
-    },
-})
-
-// Fetch payments
-const { data: payments } = useQuery({
-    queryKey: ['payments', 'my'],
-    queryFn: async () => {
-        const res = await fetch('/api/payments?limit=5', {
-            credentials: 'include',
-        })
-        if (!res.ok) throw new Error('Failed to fetch payments')
-        const data = await res.json()
-        return data.data
-    },
-})
-
-// Fetch notices
-const { data: notices } = useQuery({
-    queryKey: ['notices', 'active'],
-    queryFn: async () => {
-        const res = await fetch('/api/notices?activeOnly=true&limit=5', {
-            credentials: 'include',
-        })
-        if (!res.ok) throw new Error('Failed to fetch notices')
-        const data = await res.json()
-        return data.data
-    },
-})
-
-if (isLoading) {
-    return (
-        <div className="flex items-center justify-center min-h-screen">
-            <div className="text-center">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-                <p className="mt-4 text-gray-600">Loading dashboard...</p>
-            </div>
-        </div>
-    )
-}
-
-return (
-    <div className="container mx-auto p-6 space-y-6">
-        {/* Header */}
-        <div>
-            <h1 className="text-3xl font-bold">Welcome, {user?.name}!</h1>
-            <p className="text-gray-600 mt-1">Student Dashboard - Nur Study Care</p>
-        </div>
-
-        {/* Quick Stats */}
-        <div className="grid gap-4 md:grid-cols-3">
-            <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">My Courses</CardTitle>
-                    <BookOpen className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                    <div className="text-2xl font-bold">{enrollments?.enrollments?.length || 0}</div>
-                    <p className="text-xs text-muted-foreground">Active enrollments</p>
-                </CardContent>
-            </Card>
-
-            <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">Payments Made</CardTitle>
-                    <CreditCard className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                    <div className="text-2xl font-bold">{payments?.payments?.length || 0}</div>
-                    <p className="text-xs text-muted-foreground">Recent transactions</p>
-                </CardContent>
-            </Card>
-
-            <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">New Notices</CardTitle>
-                    <Bell className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                    <div className="text-2xl font-bold">{notices?.notices?.length || 0}</div>
-                    <p className="text-xs text-muted-foreground">Unread announcements</p>
-                </CardContent>
-            </Card>
-        </div>
-
-        {/* My Courses */}
-        <Card>
-            <CardHeader>
-                <CardTitle>My Courses</CardTitle>
-            </CardHeader>
-            <CardContent>
-                {enrollments?.enrollments?.length > 0 ? (
-                    <div className="space-y-3">
-                        {enrollments.enrollments.map((enrollment) => (
-                            <div
-                                key={enrollment._id}
-                                className="flex justify-between items-center p-3 border rounded-lg hover:bg-gray-50"
-                            >
-                                <div>
-                                    <h3 className="font-semibold">{enrollment.course?.title}</h3>
-                                    <p className="text-sm text-gray-600">
-                                        {enrollment.course?.subject} - {enrollment.batchName}
-                                    </p>
-                                    <p className="text-xs text-gray-500 mt-1">
-                                        Status: <span className="font-medium">{enrollment.status}</span>
-                                    </p>
-                                </div>
-                                <div className="text-right">
-                                    <p className="text-sm font-semibold">
-                                        Due: ৳{enrollment.dueAmount?.toLocaleString()}
-                                    </p>
-                                    <p className="text-xs text-gray-500">
-                                        of ৳{enrollment.totalFee?.toLocaleString()}
-                                    </p>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                ) : (
-                    <div className="text-center py-8 text-gray-500">
-                        <BookOpen className="h-12 w-12 mx-auto mb-3 text-gray-300" />
-                        <p>No enrollments yet</p>
-                        <Button className="mt-4" onClick={() => router.push('/courses')}>
-                            Browse Courses
-                        </Button>
-                    </div>
-                )}
-            </CardContent>
-        </Card>
-
-        {/* Recent Notices */}
-        <Card>
-            <CardHeader>
-                <CardTitle>Recent Notices</CardTitle>
-            </CardHeader>
-            <CardContent>
-                {notices?.notices?.length > 0 ? (
-                    <div className="space-y-3">
-                        {notices.notices.map((notice) => (
-                            <div
-                                key={notice._id}
-                                className="p-3 border rounded-lg hover:bg-gray-50 cursor-pointer"
-                                onClick={() => router.push(`/notices/${notice._id}`)}
-                            >
-                                <div className="flex justify-between items-start">
-                                    <h3 className="font-semibold">{notice.title}</h3>
-                                    <span className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">
-                                        {notice.type}
+                                    <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-700">
+                                        {course.status}
                                     </span>
                                 </div>
-                                <p className="text-sm text-gray-600 mt-1 line-clamp-2">{notice.content}</p>
-                                <p className="text-xs text-gray-500 mt-2">
-                                    {new Date(notice.publishDate).toLocaleDateString()}
-                                </p>
-                            </div>
-                        ))}
-                        <Button variant="outline" className="w-full" onClick={() => router.push('/notices')}>
-                            View All Notices
-                        </Button>
-                    </div>
-                ) : (
-                    <p className="text-center py-4 text-gray-500">No notices available</p>
-                )}
-            </CardContent>
-        </Card>
-    </div>
-)
+                            ))}
+                        </div>
+                    </CardContent>
+                </Card>
+
+                {/* Today's Schedule */}
+                <Card>
+                    <CardHeader>
+                        <CardTitle className="flex items-center gap-2">
+                            <Calendar className="h-5 w-5" />
+                            Today&apos;s Classes
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="space-y-3">
+                            {mockData.todaySchedule.map((class_) => (
+                                <div
+                                    key={class_.id}
+                                    className="border-l-4 border-blue-500 bg-blue-50 p-3 rounded-r"
+                                >
+                                    <p className="font-medium text-sm text-gray-900">
+                                        {class_.course}
+                                    </p>
+                                    <p className="text-xs text-gray-600 mt-1">{class_.time}</p>
+                                    <p className="text-xs text-gray-500">{class_.teacher}</p>
+                                    <p className="text-xs text-gray-500">{class_.room}</p>
+                                </div>
+                            ))}
+                        </div>
+                        <Link href="/student/schedule">
+                            <Button variant="link" size="sm" className="w-full mt-4">
+                                View Full Schedule →
+                            </Button>
+                        </Link>
+                    </CardContent>
+                </Card>
+            </div>
+
+            {/* Bottom Grid */}
+            <div className="grid gap-6 lg:grid-cols-2">
+                {/* Recent Notices */}
+                <Card>
+                    <CardHeader className="flex flex-row items-center justify-between">
+                        <CardTitle className="flex items-center gap-2">
+                            <Bell className="h-5 w-5" />
+                            Recent Notices
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="space-y-3">
+                            {mockData.notices.map((notice) => (
+                                <div key={notice.id} className="border-b pb-3 last:border-0">
+                                    <div className="flex items-start justify-between">
+                                        <div>
+                                            <p className="font-medium text-sm">{notice.title}</p>
+                                            <p className="text-xs text-gray-500 mt-1">{notice.date}</p>
+                                        </div>
+                                        <span
+                                            className={`text-xs px-2 py-1 rounded ${notice.type === 'holiday'
+                                                ? 'bg-purple-100 text-purple-700'
+                                                : notice.type === 'exam'
+                                                    ? 'bg-red-100 text-red-700'
+                                                    : 'bg-gray-100 text-gray-700'
+                                                }`}
+                                        >
+                                            {notice.type}
+                                        </span>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </CardContent>
+                </Card>
+
+                {/* Payment Status */}
+                <Card>
+                    <CardHeader className="flex flex-row items-center justify-between">
+                        <CardTitle className="flex items-center gap-2">
+                            <CreditCard className="h-5 w-5" />
+                            Payment Status
+                        </CardTitle>
+                        <Link href="/student/payments">
+                            <Button variant="outline" size="sm">
+                                Pay Now
+                            </Button>
+                        </Link>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="space-y-3">
+                            {mockData.recentPayments.map((payment) => (
+                                <div
+                                    key={payment.id}
+                                    className="flex items-center justify-between border-b pb-3 last:border-0"
+                                >
+                                    <div>
+                                        <p className="font-medium text-sm">{payment.course}</p>
+                                        <p className="text-xs text-gray-500 mt-1">{payment.date}</p>
+                                    </div>
+                                    <div className="text-right">
+                                        <p className="font-semibold">
+                                            ৳{payment.amount.toLocaleString()}
+                                        </p>
+                                        <span
+                                            className={`text-xs px-2 py-1 rounded ${payment.status === 'Paid'
+                                                ? 'bg-green-100 text-green-700'
+                                                : 'bg-yellow-100 text-yellow-700'
+                                                }`}
+                                        >
+                                            {payment.status}
+                                        </span>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </CardContent>
+                </Card>
+            </div>
+        </div>
+    )
 }

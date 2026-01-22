@@ -8,147 +8,367 @@ A full-stack web application for managing coaching centers with student enrollme
 - **Next.js 15** (App Router, React Server Components)
 - **React 19**
 - **Tailwind CSS** + **shadcn/ui** (Component Library)
-- **Zustand** (Client State Management)
+- **next-themes** (Dark Mode Support)
 - **TanStack Query** (Server State & Caching)
 - **React Hook Form** + **Zod** (Form Validation)
 
-### Backend
+### Backend & Authentication
 - **Next.js API Routes** (RESTful API)
+- **NextAuth v5** (Authentication & OAuth)
 - **MongoDB** + **Mongoose** (Database & ODM)
-- **Custom JWT Auth** (Authentication)
-- **OAuth 2.0** (Google & Facebook Social Login)
-- **Redis** (Token Blacklist & Rate Limiting)
+- **MongoDB Adapter** (NextAuth session storage)
+- **Redis/Upstash** (Optional - for caching)
 
 ### DevOps & Tools
-- **Vercel** (Deployment)
-- **MongoDB Atlas** (Database Hosting)
-- **Upstash Redis** (Redis Cloud)
-- **Cloudinary** (Image Storage)
-- **Pino** (Logging)
+- **Vercel** (Deployment Ready)
+- **MongoDB Atlas** (Database - Connected)
+- **Google OAuth** (Social Login - Configured)
+- **Resend** (Email Provider - For password reset)
 
 ---
 
-## ✨ Features (Phase 1)
+## ✨ Current Implementation Status
 
-### 🔐 Authentication & Authorization
-- ✅ Email/Password registration and login
-- ✅ Google OAuth 2.0 social login
-- ✅ Facebook OAuth 2.0 social login
-- ✅ JWT-based authentication (access + refresh tokens)
-- ✅ Role-based access control (Student, Teacher, Admin)
-- ✅ Password reset functionality
-- ✅ Account lockout after failed attempts
-- ✅ Rate limiting on auth endpoints
-- ✅ CSRF protection
+### ✅ **COMPLETED - Authentication System (100%)**
 
-### 👨‍🎓 Student Management
-- ✅ Student profile creation with auto-generated ID (STU-2026-0001)
-- ✅ Personal information (name, contact, education details)
-- ✅ Guardian information
-- ✅ Enrollment history tracking
-- ✅ Payment history
-- ✅ Student dashboard
+#### 🔐 NextAuth v5 Integration
+- ✅ Credentials Provider (Email/Password login)
+- ✅ Google OAuth Provider (Social login)
+- ✅ Email Provider (Magic links for password reset)
+- ✅ MongoDB Adapter (Session & user storage)
+- ✅ JWT Strategy (7 days session)
+- ✅ Role-based callbacks (ADMIN/TEACHER/STUDENT)
+- ✅ Edge runtime compatible middleware
+- ✅ Custom User model integration with OAuth
 
-### 👨‍🏫 Teacher Management
-- ✅ Teacher profile with qualifications
-- ✅ Subject assignment
-- ✅ Course assignment
-- ✅ Salary management
-- ✅ Teacher dashboard
+#### 🎨 Auth Components
+- ✅ LoginForm (with forgot password link)
+- ✅ RegisterForm (with validation)
+- ✅ Forgot Password Page (email magic link)
+- ✅ Social Login Buttons (Google)
+- ✅ Auth Layouts (separate from main site)
 
-### 📚 Course & Batch Management
-- ✅ Course creation with auto-generated ID (CRS-2026-0001)
-- ✅ Multiple batches per course (embedded documents)
-- ✅ Batch scheduling (day, time, capacity)
-- ✅ Course fees management
-- ✅ Syllabus upload
-- ✅ Student enrollment in batches
-- ✅ Capacity tracking
+#### 🛡️ Security & Middleware
+- ✅ Route protection (middleware)
+- ✅ Role-based access control
+- ✅ Session management
+- ✅ Auto-redirect for unauthorized access
+- ✅ Password hashing (bcryptjs - 12 rounds)
 
-### 📝 Enrollment System
-- ✅ Course enrollment with auto-generated ID (ENR-2026-000001)
-- ✅ Enrollment status tracking (Pending, Active, Completed)
-- ✅ Fee tracking (total, paid, due)
-- ✅ Basic attendance marking
-- ✅ Grades tracking
-- ✅ Atomic transactions (enrollment + payment)
+### ✅ **COMPLETED - UI/UX Design (100%)**
 
-### 💰 Payment & Billing
-- ✅ Mock payment gateway (Cash, bKash, Nagad)
-- ✅ Payment history with auto-generated ID (PAY-2026-00000001)
-- ✅ Transaction logging
-- ✅ Payment status tracking
-- ✅ Due amount calculation
-- ✅ Payment receipts
-- ✅ Ready for real gateway integration
+#### 🎨 Layout System
+- ✅ Modern Floating Navbar (dark theme for landing, glass effect on scroll for logged-in)
+- ✅ Theme Toggle Button (Light/Dark mode with next-themes)
+- ✅ Professional Footer (4-column layout with social links)
+- ✅ Separate Layouts (Main site vs Dashboard)
+- ✅ Route Groups ((main), (auth) for layout separation)
+- ✅ Responsive Design (Mobile-first)
 
-### 🕐 Class Schedule & Timetable
-- ✅ Weekly timetable generation
-- ✅ Student schedule view
-- ✅ Teacher schedule view
-- ✅ Conflict detection
-- ✅ Calendar view
-- ✅ Export to PDF
+#### 📱 Navigation
+- ✅ Public: Home, All Courses, Instructors, About Us, Contact
+- ✅ Logged In: Dashboard (role-based), + all public pages
+- ✅ Theme toggle on all pages
+- ✅ User dropdown (Profile, Settings, Logout)
+- ✅ Notifications bell icon
 
-### 🔔 Notice Board
-- ✅ Notice creation with auto-generated ID (NOT-2026-00001)
-- ✅ Target audience filtering (Student/Teacher/All)
-- ✅ Course-specific notices
-- ✅ Publish/expiry dates
-- ✅ File attachments
-- ✅ Mark as read functionality
-- ✅ Text search
+#### 🖼️ Dashboard Layouts
+- ✅ Student Dashboard (with sidebar, stats, courses, schedule)
+- ✅ Teacher Dashboard (classes, tasks, students, performance)
+- ✅ Admin Dashboard (revenue charts, approvals, enrollments, activity feed)
+- ✅ DashboardLayout component (shared sidebar/footer)
 
-### 📊 Admin Dashboard
-- ✅ Revenue reports (by month, payment method)
-- ✅ Enrollment statistics (by course, status)
-- ✅ Student performance analytics
-- ✅ Teacher statistics
-- ✅ Real-time metrics
-- ✅ Charts and visualizations
+### ✅ **COMPLETED - Database Models (100%)**
 
-### 🔒 Security Features
-- ✅ Bcrypt password hashing (12 rounds)
-- ✅ JWT token blacklisting
-- ✅ Rate limiting on sensitive endpoints
-- ✅ Input validation with Zod
-- ✅ XSS protection
-- ✅ CSRF tokens
-- ✅ SQL injection prevention (Mongoose parameterization)
-- ✅ IP tracking
-- ✅ Account lockout mechanism
+#### 📦 Mongoose Models
+- ✅ User Model (role-based, OAuth fields, email verification)
+- ✅ Student Model (auto-generated ID, guardian details)
+- ✅ Teacher Model (qualifications, salary, subjects)
+- ✅ Course Model (batches, scheduling, capacity)
+- ✅ Enrollment Model (fee tracking, attendance, grades)
+- ✅ Payment Model (bKash/Nagad/Bank/Cash support)
+- ✅ Notice Model (target audience, publish dates)
 
-### ⚡ Performance Optimizations
-- ✅ MongoDB compound indexes
-- ✅ Redis caching
-- ✅ API response caching
-- ✅ Code splitting & lazy loading
-- ✅ Image optimization (Next.js Image)
-- ✅ Text search indexes
-- ✅ Aggregation pipelines for analytics
+### ✅ **COMPLETED - API Routes (Partial)**
+
+#### 🟢 Implemented Routes
+- ✅ `/api/auth/[...nextauth]` - NextAuth handler
+- ✅ `/api/auth/register` - User registration with Zod validation
+- ✅ Analytics routes (overview, revenue) - ready
+- ✅ All CRUD route files created (courses, students, teachers, etc.)
+
+#### 🟡 Placeholder Routes (Need Full Implementation)
+- ⚠️ `/api/students` - CRUD operations
+- ⚠️ `/api/teachers` - CRUD operations
+- ⚠️ `/api/courses` - CRUD + enrollment
+- ⚠️ `/api/enrollments` - Manage enrollments
+- ⚠️ `/api/payments` - Process payments
+- ⚠️ `/api/notices` - CRUD operations
+
+### ⚠️ **IN PROGRESS - Feature Implementation (40%)**
+
+#### 🟡 Needs Implementation
+- ❌ Connect dashboard components to real APIs
+- ❌ Replace mock data with TanStack Query fetches
+- ❌ Payment gateway integration (bKash/Nagad)
+- ❌ File upload (Cloudinary for avatars/documents)
+- ❌ Email notifications (Resend integration)
+- ❌ Student courses page functional enrollment
+- ❌ Profile management (view/edit)
+- ❌ Schedule/Calendar views
+- ❌ Real-time notifications
+- ❌ Search & filters functionality
+
+### 📚 **Code Documentation**
+- ✅ README.md with current status
+- ✅ Inline comments in all services
+- ✅ JSDoc for utility functions
+- ⚠️ API documentation (need OpenAPI/Swagger)
+- ⚠️ Testing guide
 
 ---
 
-## 📁 Folder Structure
+## 🎯 **Overall Progress Summary**
+
+| Category | Status | Progress |
+|----------|--------|----------|
+| **Authentication System** | ✅ Complete | **100%** |
+| **Database Models** | ✅ Complete | **100%** |
+| **UI/UX Design** | ✅ Complete | **100%** |
+| **Layout System** | ✅ Complete | **100%** |
+| **Theme Support** | ✅ Complete | **100%** |
+| Services & Repositories | ✅ Complete | 100% |
+| shadcn/ui Components | ✅ Complete | 100% |
+| **API Routes** | ⚠️ Partial | **30%** |
+| **Dashboard Integration** | ⚠️ Mock Data | **40%** |
+| **Payment Gateway** | ❌ Not Started | **0%** |
+| **File Upload** | ❌ Not Started | **0%** |
+| **Email Notifications** | ⚠️ Configured | **30%** |
+| **Testing** | ❌ Not Started | **0%** |
+
+**Overall Project Completion: ~60%**
+
+---
+
+## 🚀 **Next Immediate Steps**
+
+### **Phase 2A - Testing & Validation (Current Priority)**
+
+1. ✅ ~~Setup NextAuth v5 with MongoDB~~
+2. ✅ ~~Configure Google OAuth~~
+3. ✅ ~~Setup email provider (Resend)~~
+4. **Test Authentication Flows** (Next)
+   - ❌ Register → Email verification → Login
+   - ❌ Login with credentials → Dashboard redirect
+   - ❌ Forgot password → Email magic link → Reset
+   - ❌ Google OAuth → Auto-create student account
+   - ❌ Logout → Session cleared
+   - ❌ Middleware role protection
+
+5. **Google OAuth Console Setup**
+   - ❌ Add redirect URI: `http://localhost:3000/api/auth/callback/google`
+   - ❌ Add production URI: `https://yourdomain.com/api/auth/callback/google`
+
+### **Phase 2B - Feature Completion**
+
+6. **Connect Dashboards to Real APIs**
+   - ❌ Replace mock data with TanStack Query
+   - ❌ Implement loading skeletons
+   - ❌ Add error boundaries
+   - ❌ Optimistic updates
+
+7. **Payment Management UI**
+   - ❌ Payment form with method selection
+   - ❌ Payment history table
+   - ❌ Transaction status badges
+   - ❌ bKash/Nagad gateway integration
+
+8. **Profile Management**
+   - ❌ View profile page
+   - ❌ Edit profile form
+   - ❌ Avatar upload (Cloudinary)
+   - ❌ Change password
+
+9. **Schedule/Calendar Views**
+   - ❌ Weekly calendar component
+   - ❌ Class schedule display
+   - ❌ Time slots & room numbers
+
+10. **Public Pages Content**
+    - ❌ About Us page
+    - ❌ Contact form
+    - ❌ Instructors listing
+    - ❌ Course catalog
+
+### **Phase 2C - Production Readiness**
+
+11. **API Implementation**
+    - ❌ Complete all CRUD endpoints
+    - ❌ Add pagination & filters
+    - ❌ Implement search functionality
+    - ❌ Add rate limiting
+
+12. **Testing & QA**
+    - ❌ Unit tests (Jest)
+    - ❌ Integration tests
+    - ❌ E2E tests (Playwright)
+    - ❌ API testing (Postman/Thunder Client)
+
+13. **Performance Optimization**
+    - ❌ Image optimization
+    - ❌ Code splitting
+    - ❌ Database indexing
+    - ❌ Redis caching layer
+
+14. **Deployment**
+    - ❌ Vercel deployment
+    - ❌ MongoDB Atlas production config
+    - ❌ Environment variables setup
+    - ❌ Domain configuration
+
+---
+
+## 📁 Project Structure
 
 ```
 nur-study-care/
 ├── src/
-│   ├── app/                          # Next.js App Router
-│   │   ├── (auth)/                   # Auth pages (login, register)
-│   │   │   ├── login/
-│   │   │   │   └── page.js
-│   │   │   ├── register/
-│   │   │   │   └── page.js
-│   │   │   └── layout.js
-│   │   ├── (dashboard)/              # Protected dashboard routes
-│   │   │   ├── student/
-│   │   │   │   ├── dashboard/page.js
-│   │   │   │   ├── courses/page.js
-│   │   │   │   ├── payments/page.js
-│   │   │   │   └── schedule/page.js
-│   │   │   ├── teacher/
-│   │   │   │   ├── dashboard/page.js
+│   ├── app/                           # Next.js 15 App Router
+│   │   ├── (main)/                    # ✅ Public pages with Header/Footer
+│   │   │   ├── layout.jsx             # Header + Footer wrapper
+│   │   │   └── page.js                # Homepage
+│   │   ├── (auth)/                    # ✅ Auth pages (no header/footer)
+│   │   │   ├── login/page.jsx
+│   │   │   ├── register/page.jsx
+│   │   │   └── layout.jsx
+│   │   ├── student/                   # ✅ Student dashboard
+│   │   │   ├── dashboard/page.jsx
+│   │   │   ├── courses/page.jsx
+│   │   │   └── layout.jsx             # DashboardLayout wrapper
+│   │   ├── teacher/                   # ✅ Teacher dashboard
+│   │   │   ├── dashboard/page.jsx
+│   │   │   └── layout.jsx
+│   │   ├── admin/                     # ✅ Admin dashboard
+│   │   │   ├── dashboard/page.jsx
+│   │   │   └── layout.jsx
+│   │   ├── api/                       # API Routes
+│   │   │   ├── auth/
+│   │   │   │   ├── [...nextauth]/route.js  # ✅ NextAuth handler
+│   │   │   │   └── register/route.js       # ✅ Registration endpoint
+│   │   │   ├── students/route.js      # ⚠️ Placeholder
+│   │   │   ├── teachers/route.js      # ⚠️ Placeholder
+│   │   │   ├── courses/route.js       # ⚠️ Placeholder
+│   │   │   ├── enrollments/route.js   # ⚠️ Placeholder
+│   │   │   ├── payments/route.js      # ⚠️ Placeholder
+│   │   │   ├── notices/route.js       # ⚠️ Placeholder
+│   │   │   └── analytics/             # ⚠️ Placeholder
+│   │   │       ├── overview/route.js
+│   │   │       └── revenue/route.js
+│   │   ├── unauthorized/page.jsx      # ✅ Wrong role redirect page
+│   │   ├── layout.js                  # ✅ Root layout (Providers only)
+│   │   ├── providers.jsx              # ✅ ThemeProvider + SessionProvider
+│   │   └── globals.css
+│   │
+│   ├── components/                    # React Components
+│   │   ├── auth/                      # ✅ Auth components
+│   │   │   ├── LoginForm.jsx          # NextAuth credentials
+│   │   │   ├── RegisterForm.jsx       # With validation
+│   │   │   └── SocialLoginButtons.jsx # Google OAuth
+│   │   ├── layout/                    # ✅ Layout components
+│   │   │   ├── Header.jsx             # Dark navbar + theme toggle
+│   │   │   ├── Footer.jsx             # 4-column modern footer
+│   │   │   ├── DashboardLayout.jsx    # Sidebar + content
+│   │   │   └── Sidebar.jsx
+│   │   ├── dashboard/                 # ✅ Dashboard widgets
+│   │   │   ├── StatCard.jsx
+│   │   │   ├── ChartCard.jsx
+│   │   │   └── ActivityFeed.jsx
+│   │   ├── student/                   # ✅ Student components
+│   │   ├── teacher/                   # ✅ Teacher components
+│   │   ├── course/                    # ✅ Course components
+│   │   ├── notice/                    # ✅ Notice components
+│   │   ├── payment/                   # ⚠️ Need implementation
+│   │   └── ui/                        # ✅ shadcn/ui components (15+)
+│   │
+│   ├── lib/                           # Utilities & Services
+│   │   ├── auth.js                    # ✅ NextAuth v5 config
+│   │   ├── mongoose.js                # ✅ MongoDB connection
+│   │   ├── redis.js                   # ⚠️ Optional caching
+│   │   ├── utils.js                   # ✅ Helpers
+│   │   ├── validations.js             # ✅ Zod schemas
+│   │   └── payments/
+│   │       └── mock-gateway.js        # ⚠️ Mock payment
+│   │
+│   ├── auth.config.js                 # ✅ NextAuth edge runtime config
+│   ├── middleware.js                  # ✅ Route protection (edge runtime)
+│   │
+│   ├── models/                        # ✅ Mongoose Models (100%)
+│   │   ├── User.js                    # Role-based, OAuth fields
+│   │   ├── Student.js                 # Auto ID, guardian info
+│   │   ├── Teacher.js                 # Qualifications, salary
+│   │   ├── Course.js                  # Batches, scheduling
+│   │   ├── Enrollment.js              # Fee tracking, attendance
+│   │   ├── Payment.js                 # Multi-method support
+│   │   └── Notice.js                  # Target audience
+│   │
+│   ├── repositories/                  # ✅ Data Access Layer (100%)
+│   │   ├── studentRepository.js
+│   │   ├── teacherRepository.js
+│   │   ├── courseRepository.js
+│   │   ├── enrollmentRepository.js
+│   │   ├── paymentRepository.js
+│   │   └── noticeRepository.js
+│   │
+│   ├── services/                      # ✅ Business Logic (100%)
+│   │   ├── studentService.js          # CRUD + auto ID
+│   │   ├── teacherService.js          # CRUD operations
+│   │   ├── courseService.js           # Batch management
+│   │   ├── enrollmentService.js       # Atomic transactions
+│   │   ├── paymentService.js          # Mock gateway
+│   │   ├── noticeService.js           # Filtering
+│   │   └── analyticsService.js        # Aggregations
+│   │
+│   ├── store/                         # ⚠️ Zustand (optional, not primary)
+│   │   └── authStore.js               # Replaced by NextAuth sessions
+│   │
+│   ├── hooks/                         # Custom React Hooks
+│   │   └── useAuth.js                 # ⚠️ Deprecated (use useSession)
+│   │
+│   └── constants/                     # ✅ App constants
+│       ├── config.js                  # App settings
+│       ├── roles.js                   # ADMIN/TEACHER/STUDENT
+│       └── permissions.js             # Role permissions
+│
+├── public/                            # Static assets
+│   ├── images/
+│   └── fonts/
+│
+├── .env.local                         # ✅ Environment variables
+├── next.config.mjs                    # ✅ Next.js config
+├── tailwind.config.js                 # ✅ Tailwind + shadcn
+├── components.json                    # ✅ shadcn/ui config
+├── package.json                       # Dependencies
+├── README.md                          # This file
+└── TESTING.md                         # ⚠️ Testing docs
+```
+
+### 🗑️ **Deleted Files (Cleaned Up)**
+
+The following files were removed during NextAuth migration:
+
+```
+❌ src/lib/auth/jwt-verify.js              # Custom JWT verification
+❌ src/lib/auth/secure-jwt-service.js      # JWT generation/refresh
+❌ src/lib/auth/social-auth-service.js     # OAuth custom logic
+❌ src/services/authService.js             # Custom auth service
+❌ src/app/api/auth/login/route.js         # Replaced by NextAuth
+❌ src/app/api/auth/logout/route.js        # Replaced by NextAuth
+❌ src/app/api/auth/refresh/route.js       # Replaced by NextAuth
+❌ src/app/api/auth/google/                # Replaced by NextAuth OAuth
+❌ src/app/api/auth/facebook/              # Removed (not using yet)
+```
+
+**Total Lines Removed:** ~2000+ lines of custom JWT code
 │   │   │   │   ├── classes/page.js
 │   │   │   │   └── students/page.js
 │   │   │   ├── admin/
@@ -277,107 +497,352 @@ nur-study-care/
 │   │   └── useNotices.js
 │   ├── store/                        # Zustand stores
 │   │   ├── authStore.js
-│   │   ├── noticeStore.js
-│   │   └── index.js
-│   ├── constants/                    # Constants & enums
-│   │   ├── roles.js
-│   │   ├── permissions.js
-│   │   └── config.js
-│   ├── middleware.js                 # Next.js middleware
-│   └── styles/
-│       └── globals.css
-├── public/
-│   ├── images/
-│   └── documents/
-├── scripts/
-│   └── seed.js                       # Database seeding
-├── .env.local                        # Environment variables
-├── .env.example                      # Environment template
-├── .gitignore
-├── next.config.js
-├── tailwind.config.js
-├── jsconfig.json
-├── package.json
-└── README.md
+---
+
+## 🔧 Architecture & Key Features
+
+### **NextAuth v5 Authentication System**
+
+#### Edge Runtime Compatible Pattern
+
+The project uses NextAuth v5's recommended pattern for edge runtime compatibility:
+
+**File: `src/auth.config.js`** (Lightweight config for middleware)
+```javascript
+export const authConfig = {
+  pages: {
+    signIn: '/login',
+    error: '/login',
+    newUser: '/register',
+  },
+  callbacks: {
+    authorized({ auth, request: { nextUrl } }) {
+      const isLoggedIn = !!auth?.user
+      const isOnDashboard = nextUrl.pathname.startsWith('/student') || 
+                            nextUrl.pathname.startsWith('/teacher') || 
+                            nextUrl.pathname.startsWith('/admin')
+      
+      // Role-based access control
+      if (isOnDashboard) {
+        if (!isLoggedIn) return false // Redirect to login
+        
+        const userRole = auth.user.role
+        const path = nextUrl.pathname
+        
+        // Check role permissions
+        if (path.startsWith('/admin') && userRole !== 'ADMIN') {
+          return Response.redirect(new URL('/unauthorized', nextUrl))
+        }
+        // ... more checks
+      }
+      
+      return true
+    },
+  },
+  providers: [], // Populated in auth.js
+}
 ```
+
+**File: `src/lib/auth.js`** (Full config with Node.js operations)
+```javascript
+import NextAuth from 'next-auth'
+import { authConfig } from '@/auth.config'
+import CredentialsProvider from 'next-auth/providers/credentials'
+import GoogleProvider from 'next-auth/providers/google'
+import EmailProvider from 'next-auth/providers/email'
+import { MongoDBAdapter } from '@auth/mongodb-adapter'
+
+export const { handlers, auth, signIn, signOut } = NextAuth({
+  ...authConfig, // Spread lightweight config
+  adapter: MongoDBAdapter(clientPromise),
+  session: { strategy: 'jwt', maxAge: 7 * 24 * 60 * 60 },
+  secret: process.env.JWT_SECRET,
+  
+  providers: [
+    CredentialsProvider({
+      async authorize(credentials) {
+        // Dynamic imports to avoid edge runtime issues
+        const { default: User } = await import('@/models/User')
+        const { default: bcrypt } = await import('bcryptjs')
+        const { default: connectDB } = await import('@/lib/mongoose')
+        
+        await connectDB()
+        const user = await User.findOne({ email: credentials.email })
+        // ... validation
+        return user
+      },
+    }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    }),
+    EmailProvider({
+      server: {
+        host: process.env.EMAIL_SERVER_HOST,
+        port: process.env.EMAIL_SERVER_PORT,
+        auth: {
+          user: process.env.EMAIL_SERVER_USER,
+          pass: process.env.EMAIL_SERVER_PASSWORD,
+        },
+      },
+      from: process.env.EMAIL_FROM,
+    }),
+  ],
+  
+  callbacks: {
+    async signIn({ user, account, profile }) {
+      // Create OAuth users in MongoDB
+      if (account?.provider === 'google') {
+        const { default: User } = await import('@/models/User')
+        const { default: connectDB } = await import('@/lib/mongoose')
+        
+        await connectDB()
+        const existingUser = await User.findOne({ email: user.email })
+        
+        if (!existingUser) {
+          await User.create({
+            name: user.name,
+            email: user.email,
+            avatar: user.image,
+            phone: '01700000000', // Default phone
+            role: 'STUDENT',
+            isActive: true,
+            isEmailVerified: true,
+          })
+        }
+      }
+      return true
+    },
+    
+    async jwt({ token, user }) {
+      // Add custom fields to JWT
+      if (user) {
+        token.id = user.id
+        token.role = user.role
+        token.avatar = user.avatar
+      }
+      return token
+    },
+    
+    async session({ session, token }) {
+      // Add custom fields to session
+      session.user.id = token.id
+      session.user.role = token.role
+      session.user.avatar = token.avatar
+      return session
+    },
+  },
+})
+```
+
+**File: `src/middleware.js`** (Edge runtime)
+```javascript
+import NextAuth from 'next-auth'
+import { authConfig } from '@/auth.config'
+
+export default NextAuth(authConfig).auth
+
+export const config = {
+  matcher: ['/student/:path*', '/teacher/:path*', '/admin/:path*'],
+}
+```
+
+### **Layout Architecture**
+
+#### Route Groups for Separation
+
+```
+app/
+├── layout.js                # Root: ThemeProvider + SessionProvider
+├── (main)/                  # Public pages
+│   ├── layout.jsx          # Header + Footer
+│   └── page.js             # Homepage
+├── (auth)/                  # Auth pages
+│   ├── layout.jsx          # Minimal layout
+│   ├── login/page.jsx
+│   └── register/page.jsx
+├── student/                 # Dashboard
+│   ├── layout.jsx          # DashboardLayout only
+│   └── dashboard/page.jsx
+├── teacher/                 # Dashboard
+│   └── layout.jsx          # DashboardLayout only
+└── admin/                   # Dashboard
+    └── layout.jsx          # DashboardLayout only
+```
+
+#### Why This Pattern?
+
+- **Separation of Concerns**: Public pages get Header/Footer, dashboards get Sidebar
+- **Performance**: Each layout loads only needed components
+- **Maintainability**: Easy to update navigation independently
+
+### **Theme Support**
+
+#### next-themes Integration
+
+```javascript
+// app/layout.js
+import { ThemeProvider } from 'next-themes'
+
+<html lang="en" suppressHydrationWarning>
+  <body>
+    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+      {children}
+    </ThemeProvider>
+  </body>
+</html>
+```
+
+```javascript
+// components/layout/Header.jsx
+import { useTheme } from 'next-themes'
+import { Sun, Moon } from 'lucide-react'
+
+const Header = () => {
+  const { theme, setTheme } = useTheme()
+  
+  return (
+    <button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
+      {theme === 'dark' ? <Sun /> : <Moon />}
+    </button>
+  )
+}
+```
+
+#### Features
+
+- ✅ System preference detection
+- ✅ Persistent theme (localStorage)
+- ✅ No flash of unstyled content
+- ✅ Dark navbar for landing page
+- ✅ Glass morphism effects
 
 ---
 
-## 🛠️ Step-by-Step Implementation Plan
+## 🛠️ Setup & Installation
 
-### **Phase 1.1: Project Setup & Foundation (Week 1)**
+### **Prerequisites**
 
-#### Step 1: Initialize Next.js Project
+- Node.js 18+ (LTS)
+- MongoDB 6.0+ (Atlas or local)
+- npm/yarn/pnpm
+
+### **1. Clone Repository**
+
 ```bash
-# Create Next.js app with latest version
-npx create-next-app@latest nur-study-care
-
-# Options:
-# ✅ TypeScript? No (using JavaScript)
-# ✅ ESLint? Yes
-# ✅ Tailwind CSS? Yes
-# ✅ src/ directory? Yes
-# ✅ App Router? Yes
-# ✅ import alias (@/*)? Yes
+git clone <repository-url>
+cd nur-study-care
 ```
 
-#### Step 2: Install Dependencies
+### **2. Install Dependencies**
+
 ```bash
-# Core dependencies
-npm install mongoose jsonwebtoken bcryptjs
-npm install googleapis
-npm install zod react-hook-form @hookform/resolvers
-npm install zustand
-npm install @tanstack/react-query
-npm install date-fns
-npm install redis
-npm install pino pino-pretty
-
-# UI & Styling
-npx shadcn-ui@latest init
-npx shadcn-ui@latest add button card input label form table dialog dropdown-menu avatar badge calendar select textarea toast
-
-# Optional
-npm install recharts                    # Charts for dashboard
-npm install dompurify isomorphic-dompurify  # XSS protection
-npm install react-dropzone                  # File uploads
+npm install
 ```
 
-#### Step 3: Configure Project Files
-- Create `jsconfig.json` with path aliases
-- Setup `next.config.js` with image domains, security headers
-- Configure `tailwind.config.js` with custom colors
-- Create `.env.example` template
+### **3. Environment Setup**
 
-#### Step 4: Setup Folder Structure
-- Create all folders as per structure above
-- Create placeholder files for organization
+Create `.env.local` file:
+
+```env
+# MongoDB
+MONGODB_URI=mongodb+srv://your-user:your-password@cluster0.xxxxx.mongodb.net/nur_study_care
+
+# NextAuth
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=your-random-secret-key  # Generate with: openssl rand -base64 32
+JWT_SECRET=your-jwt-secret              # For password hashing
+
+# Google OAuth
+GOOGLE_CLIENT_ID=your-google-client-id.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=your-google-client-secret
+
+# Email (Resend SMTP)
+EMAIL_SERVER_HOST=smtp.resend.com
+EMAIL_SERVER_PORT=587
+EMAIL_SERVER_USER=resend
+EMAIL_SERVER_PASSWORD=re_xxxxxxxxxxxx  # Your Resend API key
+EMAIL_FROM=onboarding@resend.dev
+```
+
+### **4. Google OAuth Setup**
+
+1. Go to [Google Cloud Console](https://console.cloud.google.com/)
+2. Create a new project or select existing
+3. Enable **Google+ API**
+4. Go to **Credentials** → **Create Credentials** → **OAuth 2.0 Client ID**
+5. Application type: **Web application**
+6. Authorized redirect URIs:
+   - Development: `http://localhost:3000/api/auth/callback/google`
+   - Production: `https://yourdomain.com/api/auth/callback/google`
+7. Copy **Client ID** and **Client Secret** to `.env.local`
+
+### **5. Resend Email Setup**
+
+1. Go to [Resend](https://resend.com/)
+2. Sign up and verify your account
+3. Get your **API Key** from dashboard
+4. Add to `.env.local` as `EMAIL_SERVER_PASSWORD`
+
+### **6. Run Development Server**
+
+```bash
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000)
+
+### **7. Test Authentication**
+
+1. Register a new account at `/register`
+2. Login at `/login`
+3. Test Google OAuth
+4. Test forgot password at `/forgot-password`
 
 ---
 
-### **Phase 1.2: Database & Models (Week 1)**
+## 📋 Known Issues & Workarounds
 
-#### Step 5: MongoDB Connection Setup
-- Create `lib/mongoose.js` with singleton pattern
-- Handle connection pooling
-- Add development/production environment handling
+### **1. Nodemailer Peer Dependency Warning**
 
-#### Step 6: Create Mongoose Models
-Priority order:
-1. **User Model** (base for all users)
-   - Role enum (STUDENT, TEACHER, ADMIN)
-   - Social auth fields (googleId, facebookId)
-   - Password hashing middleware
-   - Validation & indexes
+**Issue:**
+```
+npm WARN nextauth@5.0.0-beta.30 requires a peer of nodemailer@^6.8.0 but v7.0.12 is installed
+```
 
-2. **Student Model**
-   - Reference to User
-   - Auto-generated studentId
-   - Personal & guardian info
-   - Education details
+**Workaround:** 
+- Non-breaking warning, ignore for now
+- Resend SMTP works with nodemailer v7
+- Will be fixed in NextAuth stable release
 
-3. **Teacher Model**
-   - Reference to User
+### **2. Google OAuth Redirect URI**
+
+**Issue:** `Error: redirect_uri_mismatch`
+
+**Fix:**
+1. Go to Google Cloud Console
+2. Add exact redirect URI: `http://localhost:3000/api/auth/callback/google`
+3. Wait 5 minutes for propagation
+
+### **3. Mock Data in Dashboards**
+
+**Status:** All dashboards use hardcoded mock data
+
+**Next Step:** Connect to real API endpoints with TanStack Query
+
+### **4. Email Verification Not Implemented**
+
+**Status:** Users can login without email verification
+
+**Next Step:** Implement email verification flow with NextAuth EmailProvider
+
+---
+
+## 🧪 Testing Guide
+
+### **Manual Testing Checklist**
+
+#### Authentication
    - Auto-generated teacherId
    - Qualifications array
    - Salary & bank details
@@ -432,106 +897,173 @@ Priority order:
   - Facebook OAuth setup
   - Find-or-create user logic
 
-- Create OAuth routes:
-  - `api/auth/google/route.js` - Redirect to Google
-  - `api/auth/google/callback/route.js` - Handle callback
-  - `api/auth/facebook/route.js` - Redirect to Facebook
-  - `api/auth/facebook/callback/route.js` - Handle callback
 
-#### Step 10: Authentication Middleware
-- Create `middleware.js`
-  - JWT verification
-  - Role-based access control
-  - CSRF protection
-  - Route protection patterns
+- [ ] Register new account → Redirect to login
+- [ ] Login with credentials → Dashboard redirect (role-based)
+- [ ] Logout → Session cleared
+- [ ] Google OAuth → Auto-create student account
+- [ ] Forgot password → Receive email with magic link
+- [ ] Theme toggle → Persist across sessions
 
-#### Step 11: Auth UI Components
-- `components/auth/LoginForm.jsx` - Email/password login
-- `components/auth/RegisterForm.jsx` - Registration form
-- `components/auth/SocialLoginButtons.jsx` - Google/Facebook buttons
-- `app/(auth)/login/page.js` - Login page
-- `app/(auth)/register/page.js` - Register page
+#### Role-Based Access
 
----
+- [ ] STUDENT tries `/admin/dashboard` → Redirect to `/unauthorized`
+- [ ] TEACHER tries `/student/dashboard` → Redirect to `/unauthorized`
+- [ ] Unauthenticated user tries dashboard → Redirect to `/login`
+- [ ] Middleware protects routes correctly
 
-### **Phase 1.4: Core Services & Repositories (Week 2)**
+#### UI/UX
 
-#### Step 12: Repository Layer (Data Access)
-- `repositories/studentRepository.js` - CRUD operations
-- `repositories/courseRepository.js` - CRUD operations
-- `repositories/enrollmentRepository.js` - CRUD operations
-- `repositories/paymentRepository.js` - CRUD operations
-- `repositories/noticeRepository.js` - CRUD operations
+- [ ] Dark mode works on all pages
+- [ ] Mobile responsive (navbar, dashboards, forms)
+- [ ] Toast notifications display correctly
+- [ ] Loading states show during auth
+- [ ] Form validation displays errors
 
-#### Step 13: Service Layer (Business Logic)
-- `services/studentService.js`
-  - Create student with auto ID
-  - Update student profile
-  - Get student with enrollments
+#### Dashboard Pages
 
-- `services/courseService.js`
-  - Create course with batches
-  - Update batch capacity
-  - Check batch availability
-
-- `services/enrollmentService.js`
-  - Enroll student (with transactions)
-  - Update enrollment status
-  - Track attendance & grades
-
-- `services/paymentService.js`
-  - Process payment (mock gateway)
-  - Update enrollment paid amount
-  - Generate payment history
+- [ ] Student dashboard loads with mock data
+- [ ] Teacher dashboard loads with mock data
+- [ ] Admin dashboard loads with mock data
+- [ ] Student courses page shows course cards
+- [ ] All components render without errors
 
 ---
 
-### **Phase 1.5: Student Management (Week 3)**
+## 📦 Dependencies
 
-#### Step 14: Student API Routes
-- `api/students/route.js` - GET (list), POST (create)
-- `api/students/[id]/route.js` - GET, PUT, DELETE
-- Add role-based access control (Admin only for create/delete)
+### **Production**
 
-#### Step 15: Student UI Components
-- `components/student/StudentList.jsx` - Table with pagination
-- `components/student/StudentCard.jsx` - Profile card
-- `components/student/StudentForm.jsx` - Create/edit form
-- `app/(dashboard)/student/dashboard/page.js` - Student dashboard
-- `app/(dashboard)/admin/students/page.js` - Admin student management
+```json
+{
+  "dependencies": {
+    "next": "^15.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "next-auth": "^5.0.0-beta.30",
+    "@auth/mongodb-adapter": "^3.7.4",
+    "mongoose": "^8.0.0",
+    "mongodb": "^6.0.0",
+    "bcryptjs": "^2.4.3",
+    "next-themes": "^0.4.4",
+    "zod": "^3.22.0",
+    "react-hook-form": "^7.50.0",
+    "@hookform/resolvers": "^3.3.0",
+    "@tanstack/react-query": "^5.20.0",
+    "sonner": "^1.4.0",
+    "lucide-react": "^0.300.0",
+    "@radix-ui/react-avatar": "^1.0.0",
+    "@radix-ui/react-dropdown-menu": "^2.0.0",
+    "@radix-ui/react-dialog": "^1.0.0",
+    "nodemailer": "^7.0.12",
+    "resend": "^4.0.0"
+  }
+}
+```
+
+### **Development**
+
+```json
+{
+  "devDependencies": {
+    "tailwindcss": "^3.4.0",
+    "postcss": "^8.4.0",
+    "autoprefixer": "^10.4.0",
+    "eslint": "^8.50.0",
+    "eslint-config-next": "^15.0.0"
+  }
+}
+```
 
 ---
 
-### **Phase 1.6: Course & Batch Management (Week 3)**
+## 🚀 Deployment
 
-#### Step 16: Course API Routes
-- `api/courses/route.js` - GET (list), POST (create)
-- `api/courses/[id]/route.js` - GET, PUT, DELETE
-- `api/courses/[id]/enroll/route.js` - POST (enroll student)
-- Add capacity validation
+### **Vercel (Recommended)**
 
-#### Step 17: Course UI Components
-- `components/course/CourseList.jsx` - Grid view with filters
-- `components/course/CourseCard.jsx` - Course details card
-- `components/course/CourseForm.jsx` - Create/edit form
-- `components/course/BatchSchedule.jsx` - Schedule builder
-- `app/(dashboard)/admin/courses/page.js` - Admin course management
-- `app/(dashboard)/student/courses/page.js` - Student course browsing
+1. **Push to GitHub**
+   ```bash
+   git init
+   git add .
+   git commit -m "Initial commit"
+   git remote add origin <your-repo-url>
+   git push -u origin main
+   ```
+
+2. **Import to Vercel**
+   - Go to [Vercel Dashboard](https://vercel.com/dashboard)
+   - Click "New Project"
+   - Import from GitHub repository
+   - Vercel auto-detects Next.js
+
+3. **Environment Variables**
+   - Add all `.env.local` variables in Vercel dashboard
+   - Update `NEXTAUTH_URL` to production domain
+   - Add production Google OAuth redirect URI
+
+4. **MongoDB Atlas**
+   - Whitelist Vercel IP: `0.0.0.0/0` (all IPs)
+   - Or add specific Vercel regions
+
+5. **Deploy**
+   - Vercel auto-deploys on every push to main branch
+   - Preview deployments for PRs
 
 ---
 
-### **Phase 1.7: Enrollment & Payment (Week 4)**
+## 🤝 Contributing
 
-#### Step 18: Enrollment API Routes
-- `api/enrollments/route.js` - GET (list), POST (create)
-- `api/enrollments/[id]/route.js` - GET, PUT
-- Implement Mongoose transactions for atomic operations
+### **Code Style**
 
-#### Step 19: Payment API Routes
-- `api/payments/route.js` - GET (history)
-- `api/payments/create/route.js` - POST (process payment)
-- `api/payments/history/route.js` - GET (student payment history)
-- Integrate mock payment gateway
+- Use functional React components
+- Follow Next.js App Router conventions
+- Use Tailwind CSS utility classes
+- Keep components small and focused
+- Add JSDoc comments for complex functions
+
+### **Commit Messages**
+
+```
+feat: Add student enrollment feature
+fix: Fix authentication redirect loop
+docs: Update README with setup instructions
+refactor: Simplify payment service logic
+style: Format code with Prettier
+test: Add unit tests for authService
+```
+
+### **Branch Strategy**
+
+- `main` - Production-ready code
+- `develop` - Development branch
+- `feature/feature-name` - Feature branches
+- `fix/bug-description` - Bug fixes
+
+---
+
+## 📝 License
+
+This project is for educational purposes.
+
+---
+
+## 👥 Team
+
+**Project Lead:** Nur Study Care Development Team
+
+---
+
+## 📞 Support
+
+For issues or questions:
+- Create an issue on GitHub
+- Email: support@nurstudycare.com (if applicable)
+
+---
+
+**Last Updated:** January 2025
+**Current Version:** 0.6.0 (60% Complete)
+**Next Milestone:** API Integration & Testing (Phase 2A)
 
 #### Step 20: Payment UI Components
 - `components/payment/PaymentForm.jsx` - Payment method selection

@@ -1,53 +1,27 @@
 'use client'
 
-import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { useAuthStore } from '@/store/authStore'
+import { useSession } from 'next-auth/react'
 import { Button } from '@/components/ui/button'
 import { BookOpen, Users, GraduationCap, CheckCircle } from 'lucide-react'
 import Link from 'next/link'
 
 export default function Home() {
   const router = useRouter()
-  const { isAuthenticated, user } = useAuthStore()
+  const { data: session, status } = useSession()
+  const isAuthenticated = status === 'authenticated'
+  const user = session?.user
 
-  useEffect(() => {
-    if (isAuthenticated && user) {
-      if (user.role === 'ADMIN') {
-        router.push('/admin/dashboard')
-      } else if (user.role === 'TEACHER') {
-        router.push('/teacher/dashboard')
-      } else {
-        router.push('/student/dashboard')
-      }
-    }
-  }, [isAuthenticated, user, router])
+  const getDashboardPath = () => {
+    if (!isAuthenticated || !user) return '/login'
+    if (user.role === 'ADMIN') return '/admin/dashboard'
+    if (user.role === 'TEACHER') return '/teacher/dashboard'
+    return '/student/dashboard'
+  }
 
   return (
-    <div className="min-h-screen bg-linear-to-b from-blue-50 to-white">
-      <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50">
-        <div className="container mx-auto flex h-16 items-center justify-between px-4">
-          <div className="flex items-center gap-2">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-600 text-white font-bold text-xl">
-              N
-            </div>
-            <div>
-              <h1 className="text-lg font-bold text-gray-900">Nur Study Care</h1>
-              <p className="text-xs text-gray-500">Coaching Center</p>
-            </div>
-          </div>
-          <div className="flex gap-3">
-            <Button variant="outline" onClick={() => router.push('/login')}>
-              Login
-            </Button>
-            <Button onClick={() => router.push('/register')}>
-              Register
-            </Button>
-          </div>
-        </div>
-      </header>
-
-      <section className="container mx-auto px-4 py-20 text-center">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+      <section className="container mx-auto max-w-7xl px-4 py-20 text-center">
         <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
           Welcome to <span className="text-blue-600">Nur Study Care</span>
         </h1>
@@ -55,12 +29,20 @@ export default function Home() {
           Your trusted partner in academic excellence. Quality coaching for SSC, HSC, and Admission tests.
         </p>
         <div className="flex gap-4 justify-center">
-          <Button size="lg" onClick={() => router.push('/register')}>
-            Get Started
-          </Button>
-          <Button size="lg" variant="outline" onClick={() => router.push('/login')}>
-            Sign In
-          </Button>
+          {isAuthenticated ? (
+            <Button size="lg" onClick={() => router.push(getDashboardPath())}>
+              Go to Dashboard
+            </Button>
+          ) : (
+            <>
+              <Button size="lg" onClick={() => router.push('/register')}>
+                Get Started
+              </Button>
+              <Button size="lg" variant="outline" onClick={() => router.push('/login')}>
+                Sign In
+              </Button>
+            </>
+          )}
         </div>
       </section>
 

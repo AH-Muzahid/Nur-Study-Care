@@ -1,9 +1,10 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useAuth } from '@/hooks/useAuth'
+import { signIn } from 'next-auth/react'
 import { registerSchema } from '@/lib/schemas'
 import { Button } from '@/components/ui/button'
 import {
@@ -16,9 +17,10 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Loader2 } from 'lucide-react'
+import { toast } from 'sonner'
 
 export function RegisterForm() {
-    const { register: registerUser } = useAuth()
+    const router = useRouter()
     const [loading, setLoading] = useState(false)
 
     const form = useForm({
@@ -34,9 +36,26 @@ export function RegisterForm() {
     const onSubmit = async (data) => {
         setLoading(true)
         try {
-            await registerUser({ ...data, role: 'STUDENT' })
+            // Register user
+            const res = await fetch('/api/auth/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ ...data, role: 'STUDENT' }),
+            })
+
+            const result = await res.json()
+
+            if (!res.ok) {
+                toast.error(result.error || 'Registration failed')
+                return
+            }
+
+            toast.success('Registration successful! Please login.')
+
+            // Redirect to login page
+            router.push('/login')
         } catch (error) {
-            // Error already handled in useAuth hook
+            toast.error('An error occurred during registration')
         } finally {
             setLoading(false)
         }

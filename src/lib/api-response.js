@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { logger } from './logger'
+import logger from './logger'
 
 /**
  * Success response helper

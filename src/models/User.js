@@ -50,12 +50,10 @@ const UserSchema = new mongoose.Schema(
         googleId: {
             type: String,
             sparse: true,
-            unique: true,
         },
         facebookId: {
             type: String,
             sparse: true,
-            unique: true,
         },
         githubId: {
             type: String,
@@ -90,19 +88,18 @@ const UserSchema = new mongoose.Schema(
 )
 
 // Indexes
-UserSchema.index({ email: 1 })
+UserSchema.index({ email: 1 }, { unique: true })
 UserSchema.index({ role: 1, isActive: 1 })
-UserSchema.index({ googleId: 1 }, { sparse: true })
-UserSchema.index({ facebookId: 1 }, { sparse: true })
+UserSchema.index({ googleId: 1 }, { sparse: true, unique: true })
+UserSchema.index({ facebookId: 1 }, { sparse: true, unique: true })
 
 // Pre-save middleware: Hash password
-UserSchema.pre('save', async function (next) {
+UserSchema.pre('save', async function () {
     // Only hash password if it's modified and not from social auth
-    if (!this.isModified('password') || !this.password) return next()
+    if (!this.isModified('password') || !this.password) return
 
     const salt = await bcrypt.genSalt(12)
     this.password = await bcrypt.hash(this.password, salt)
-    next()
 })
 
 // Instance method: Compare password

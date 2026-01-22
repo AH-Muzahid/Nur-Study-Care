@@ -1,13 +1,23 @@
 import { Redis } from '@upstash/redis'
 
 let redis = null
+let redisError = false
 
 export function getRedis() {
+    // If we already tried and failed, don't try again
+    if (redisError) return null
+
     if (!redis && process.env.REDIS_URL && process.env.REDIS_TOKEN) {
-        redis = new Redis({
-            url: process.env.REDIS_URL,
-            token: process.env.REDIS_TOKEN,
-        })
+        try {
+            redis = new Redis({
+                url: process.env.REDIS_URL,
+                token: process.env.REDIS_TOKEN,
+            })
+        } catch (error) {
+            console.warn('Redis connection failed, using in-memory cache:', error.message)
+            redisError = true
+            redis = null
+        }
     }
     return redis
 }

@@ -78,9 +78,8 @@ EnrollmentSchema.index({ enrollmentDate: -1 })
 EnrollmentSchema.index({ student: 1, status: 1 })
 
 // Pre-save middleware: Calculate due amount
-EnrollmentSchema.pre('save', function (next) {
+EnrollmentSchema.pre('save', function () {
     this.dueAmount = this.totalFee - this.paidAmount
-    next()
 })
 
 const Enrollment = mongoose.models.Enrollment || mongoose.model('Enrollment', EnrollmentSchema)

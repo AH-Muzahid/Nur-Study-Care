@@ -1,9 +1,11 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { signIn } from 'next-auth/react'
+import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useAuth } from '@/hooks/useAuth'
 import { loginSchema } from '@/lib/schemas'
 import { Button } from '@/components/ui/button'
 import {
@@ -16,9 +18,10 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Loader2 } from 'lucide-react'
+import { toast } from 'sonner'
 
 export function LoginForm() {
-    const { login } = useAuth()
+    const router = useRouter()
     const [loading, setLoading] = useState(false)
 
     const form = useForm({
@@ -32,9 +35,21 @@ export function LoginForm() {
     const onSubmit = async (data) => {
         setLoading(true)
         try {
-            await login(data)
+            const result = await signIn('credentials', {
+                email: data.email,
+                password: data.password,
+                redirect: false,
+            })
+
+            if (result?.error) {
+                toast.error(result.error)
+            } else if (result?.ok) {
+                toast.success('Login successful!')
+                router.push('/student/dashboard')
+                router.refresh()
+            }
         } catch (error) {
-            // Error already handled in useAuth hook
+            toast.error('An error occurred during login')
         } finally {
             setLoading(false)
         }
@@ -80,6 +95,12 @@ export function LoginForm() {
                         </FormItem>
                     )}
                 />
+
+                <div className="text-right">
+                    <Link href="/forgot-password" className="text-sm text-blue-600 hover:underline">
+                        Forgot password?
+                    </Link>
+                </div>
 
                 <Button type="submit" className="w-full" disabled={loading}>
                     {loading ? (
