@@ -36,8 +36,6 @@ const PaymentSchema = new mongoose.Schema(
         },
         transactionId: {
             type: String,
-            sparse: true,
-            unique: true,
         },
         gatewayResponse: mongoose.Schema.Types.Mixed,
         paymentDate: {
@@ -61,13 +59,13 @@ const PaymentSchema = new mongoose.Schema(
 )
 
 // Indexes
-PaymentSchema.index({ paymentId: 1 })
 PaymentSchema.index({ enrollment: 1 })
 PaymentSchema.index({ student: 1 })
 PaymentSchema.index({ status: 1 })
 PaymentSchema.index({ paymentDate: -1 })
 PaymentSchema.index({ method: 1, status: 1 })
 PaymentSchema.index({ paymentDate: -1, status: 1 })
+PaymentSchema.index({ transactionId: 1 }, { sparse: true, unique: true })
 
 const Payment = mongoose.models.Payment || mongoose.model('Payment', PaymentSchema)
 

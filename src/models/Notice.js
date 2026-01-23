@@ -65,7 +65,6 @@ const NoticeSchema = new mongoose.Schema(
 )
 
 // Indexes
-NoticeSchema.index({ noticeId: 1 })
 NoticeSchema.index({ publishDate: -1 })
 NoticeSchema.index({ type: 1, isActive: 1 })
 NoticeSchema.index({ targetAudience: 1, isActive: 1 })

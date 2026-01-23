@@ -49,16 +49,12 @@ const UserSchema = new mongoose.Schema(
         },
         googleId: {
             type: String,
-            sparse: true,
         },
         facebookId: {
             type: String,
-            sparse: true,
         },
         githubId: {
             type: String,
-            sparse: true,
-            unique: true,
         },
         isEmailVerified: {
             type: Boolean,
@@ -88,10 +84,10 @@ const UserSchema = new mongoose.Schema(
 )
 
 // Indexes
-UserSchema.index({ email: 1 }, { unique: true })
 UserSchema.index({ role: 1, isActive: 1 })
 UserSchema.index({ googleId: 1 }, { sparse: true, unique: true })
 UserSchema.index({ facebookId: 1 }, { sparse: true, unique: true })
+UserSchema.index({ githubId: 1 }, { sparse: true, unique: true })
 
 // Pre-save middleware: Hash password
 UserSchema.pre('save', async function () {

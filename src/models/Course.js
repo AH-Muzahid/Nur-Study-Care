@@ -21,7 +21,6 @@ const CourseSchema = new mongoose.Schema(
         subject: {
             type: String,
             required: true,
-            index: true,
         },
         level: {
             type: String,
@@ -78,7 +77,6 @@ const CourseSchema = new mongoose.Schema(
 )
 
 // Indexes
-CourseSchema.index({ courseId: 1 })
 CourseSchema.index({ subject: 1, level: 1 })
 CourseSchema.index({ teacher: 1 })
 CourseSchema.index({ status: 1 })

@@ -65,8 +65,6 @@ const TeacherSchema = new mongoose.Schema(
 )
 
 // Indexes
-TeacherSchema.index({ teacherId: 1 })
-TeacherSchema.index({ userId: 1 })
 TeacherSchema.index({ subjects: 1 })
 
 const Teacher = mongoose.models.Teacher || mongoose.model('Teacher', TeacherSchema)

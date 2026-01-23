@@ -71,7 +71,6 @@ const EnrollmentSchema = new mongoose.Schema(
 )
 
 // Indexes
-EnrollmentSchema.index({ enrollmentId: 1 })
 EnrollmentSchema.index({ student: 1, course: 1 })
 EnrollmentSchema.index({ status: 1 })
 EnrollmentSchema.index({ enrollmentDate: -1 })

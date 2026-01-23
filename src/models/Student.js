@@ -66,8 +66,6 @@ const StudentSchema = new mongoose.Schema(
 )
 
 // Indexes
-StudentSchema.index({ studentId: 1 })
-StudentSchema.index({ userId: 1 })
 StudentSchema.index({ 'educationInfo.class': 1 })
 
 // Virtual for age
