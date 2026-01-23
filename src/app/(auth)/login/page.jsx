@@ -1,34 +1,40 @@
-import Link from 'next/link'
-import { LoginForm } from '@/components/auth/LoginForm'
-import { SocialLoginButtons } from '@/components/auth/SocialLoginButtons'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+'use client'
 
-export const metadata = {
-    title: 'Login - Nur Study Care',
-    description: 'Login to your account',
-}
+
+import { Suspense, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import { GlassLoginForm } from '@/components/auth/GlassLoginForm'
+import { AuthErrorListener } from '@/components/auth/AuthErrorListener'
+import { useAuthStore } from '@/store/authStore'
+import { getDashboardPath } from '@/lib/helpers'
 
 export default function LoginPage() {
+    const router = useRouter()
+    const { user, isAuthenticated } = useAuthStore()
+
+    useEffect(() => {
+        // Redirect to dashboard if already logged in
+        if (isAuthenticated && user) {
+            const dashboardPath = getDashboardPath(user.role)
+            router.replace(dashboardPath)
+        }
+    }, [isAuthenticated, user, router])
+
+    // Don't show login form if already authenticated
+    if (isAuthenticated && user) {
+        return (
+            <div className="flex items-center justify-center min-h-[400px]">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+            </div>
+        )
+    }
+
     return (
-        <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4">
-            <Card className="w-full max-w-md">
-                <CardHeader className="space-y-1 text-center">
-                    <CardTitle className="text-2xl font-bold">Welcome Back</CardTitle>
-                    <CardDescription>
-                        Sign in to your Nur Study Care account
-                    </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                    <LoginForm />
-                    <SocialLoginButtons />
-                    <p className="text-center text-sm text-gray-600">
-                        Don&apos;t have an account?{' '}
-                        <Link href="/register" className="font-medium text-blue-600 hover:underline">
-                            Register now
-                        </Link>
-                    </p>
-                </CardContent>
-            </Card>
+        <div className="flex justify-center items-center w-full">
+            <Suspense fallback={null}>
+                <AuthErrorListener />
+            </Suspense>
+            <GlassLoginForm />
         </div>
     )
 }

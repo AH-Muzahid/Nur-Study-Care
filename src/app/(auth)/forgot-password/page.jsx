@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { signIn } from 'next-auth/react'
+
 import Link from 'next/link'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -20,19 +20,20 @@ export default function ForgotPasswordPage() {
         setLoading(true)
 
         try {
-            // Use NextAuth email provider to send magic link
+            // Password reset implementation needed since removing NextAuth
+            // TODO: Implement custom password reset flow or Firebase password reset
+            toast.error('Password reset is currently under maintenance. Please contact support.')
+
+            /* 
+            // Previous NextAuth implementation
             const result = await signIn('email', {
                 email,
                 redirect: false,
                 callbackUrl: '/student/dashboard',
             })
+            */
 
-            if (result?.error) {
-                toast.error('Failed to send reset link')
-            } else {
-                setSent(true)
-                toast.success('Password reset link sent to your email')
-            }
+            // setSent(true)
         } catch (error) {
             toast.error('An error occurred. Please try again.')
         } finally {

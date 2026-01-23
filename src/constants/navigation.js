@@ -10,6 +10,7 @@ import {
     Calendar,
     FileText,
     BarChart,
+    Globe,
 } from 'lucide-react'
 
 /**
@@ -132,6 +133,11 @@ export const ADMIN_NAV_ITEMS = [
         title: 'Analytics',
         href: '/admin/analytics',
         icon: BarChart,
+    },
+    {
+        title: 'Site Content',
+        href: '/admin/site-content',
+        icon: Globe,
     },
     {
         title: 'Settings',

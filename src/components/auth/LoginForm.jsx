@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { signIn } from 'next-auth/react'
 import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -19,10 +18,13 @@ import {
 import { Input } from '@/components/ui/input'
 import { Loader2 } from 'lucide-react'
 import { toast } from 'sonner'
+import { authAPI } from '@/lib/api-client'
+import { useAuthStore } from '@/store/authStore'
 
 export function LoginForm() {
     const router = useRouter()
     const [loading, setLoading] = useState(false)
+    const setUser = useAuthStore((state) => state.setUser)
 
     const form = useForm({
         resolver: zodResolver(loginSchema),
@@ -35,21 +37,25 @@ export function LoginForm() {
     const onSubmit = async (data) => {
         setLoading(true)
         try {
-            const result = await signIn('credentials', {
-                email: data.email,
-                password: data.password,
-                redirect: false,
-            })
+            const response = await authAPI.login(data)
 
-            if (result?.error) {
-                toast.error(result.error)
-            } else if (result?.ok) {
+            if (response.user) {
+                setUser(response.user)
                 toast.success('Login successful!')
-                router.push('/student/dashboard')
+
+                // Redirect based on role
+                const role = response.user.role
+                if (role === 'ADMIN') router.push('/admin/dashboard')
+                else if (role === 'TEACHER') router.push('/teacher/dashboard')
+                else router.push('/student/dashboard')
+
                 router.refresh()
+            } else {
+                toast.error('Login failed')
             }
         } catch (error) {
-            toast.error('An error occurred during login')
+            console.error('Login error:', error)
+            toast.error(error.message || 'Invalid email or password')
         } finally {
             setLoading(false)
         }
@@ -97,7 +103,7 @@ export function LoginForm() {
                 />
 
                 <div className="text-right">
-                    <Link href="/forgot-password" className="text-sm text-blue-600 hover:underline">
+                    <Link href="/forgot-password" className="text-sm text-primary-600 hover:underline">
                         Forgot password?
                     </Link>
                 </div>
