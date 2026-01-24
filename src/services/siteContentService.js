@@ -3,29 +3,29 @@ import SiteContent from '@/models/SiteContent'
 
 const defaultContent = {
     hero: {
-        badge: "Admission Going On - HSC 2026 Batch",
-        title: "Unlock Your Potential with",
-        titleHighlight: "Nur Study Care",
-        description: "Join the most trusted coaching platform for SSC, HSC, and Admission preparation. Expert teachers, personalized care, and proven results.",
+        badge: "২০২৬ শিক্ষাবর্ষে ভর্তি চলছে 🔥",
+        title: "NUR STUDY CARE (NSC)",
+        titleHighlight: "এবার নতুন বছরে, নতুন উদ্যমে",
+        description: "আলহামদুলিল্লাহ, Class-09 এর ভর্তি শুরু। ৬ষ্ঠ থেকে ১০ম শ্রেণির ভর্তি চলছে। কোর্স পেমেন্ট ৮ মাসে ৪০০০ টাকা অথবা প্রতি মাসে ৫০০ টাকা।",
         stats: [
-            { value: "500+", label: "Students Enrolled" },
-            { value: "50+", label: "Video Courses" },
-            { value: "20+", label: "Expert Teachers" },
-            { value: "100%", label: "Success Rate" }
+            { value: "৫০০+", label: "শিক্ষার্থী" },
+            { value: "১০০%", label: "পাসের হার" },
+            { value: "২০+", label: "অভিজ্ঞ শিক্ষক" },
+            { value: "২৪/৭", label: "সাপোর্ট" }
         ]
     },
     promoCarousel: {
         slides: [
             {
                 id: 1,
-                title: "ADMISSION 2026",
-                subtitle: "HSC Batch",
-                description: "Secure your seat in the most prestigious coaching center.",
+                title: "ভর্তি চলছে...",
+                subtitle: "৬ষ্ঠ - ১০ম শ্রেণি",
+                description: "৮ মাসের কোর্স ফি মাত্র ৪০০০ টাকা (প্রতি মাসে ৫০০ টাকা)। সাধারণ গণিত, বিজ্ঞান, ইংরেজি, পদার্থ, রসায়ন ও উচ্চতর গণিত।",
                 gradient: "bg-gradient-to-r from-violet-600 to-indigo-600",
                 image: "/images/slider/1.png",
-                link: "/courses/hsc-2026",
-                badge: "New Batch",
-                buttonText: "LEARN MORE"
+                link: "/contact",
+                badge: "নতুন ব্যাচ",
+                buttonText: "ভর্তি হোন"
             },
             {
                 id: 2,

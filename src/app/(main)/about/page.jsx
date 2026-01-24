@@ -3,7 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { ScrollAnimationWrapper } from '@/components/ui/scroll-animation'
-import { ArrowRight, Star, Target, Compass, Lightbulb, Heart, History, Globe, BookOpen } from 'lucide-react'
+import { ArrowRight, Star, Target, Compass, Lightbulb, Heart, History, Globe, BookOpen, Check } from 'lucide-react'
 
 export const metadata = {
     title: 'আমাদের গল্প - নূর স্টাডি কেয়ার',
