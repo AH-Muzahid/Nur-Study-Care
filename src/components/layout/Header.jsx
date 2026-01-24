@@ -152,11 +152,11 @@ export function Header() {
                                     variant="ghost"
                                     size="icon"
                                     onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                                    className="rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300"
+                                    className="rounded-full transition-all duration-300"
                                 >
                                     {theme === 'dark' ?
-                                        <Sun className="h-5 w-5 text-gray-700 dark:text-gray-300" /> :
-                                        <Moon className="h-5 w-5 text-gray-700 dark:text-gray-300" />
+                                        <Sun className="h-5 w-5 " /> :
+                                        <Moon className="h-5 w-5 " />
                                     }
                                 </Button>
                             )}
@@ -165,7 +165,7 @@ export function Header() {
                                 <>
                                     {/* Notifications */}
                                     <Button
-                                        variant="ghost"
+                                        variant="default"
                                         size="icon"
                                         className="rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 relative transition-all duration-300"
                                     >
@@ -177,7 +177,7 @@ export function Header() {
                                     <DropdownMenu>
                                         <DropdownMenuTrigger asChild>
                                             <Button
-                                                variant="ghost"
+                                                variant="default"
                                                 className="gap-2.5 pl-2 pr-4 h-11 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300 border border-gray-200/50 dark:border-gray-700/50"
                                             >
                                                 <Avatar className="h-8 w-8 ring-2 ring-primary-500/30">
