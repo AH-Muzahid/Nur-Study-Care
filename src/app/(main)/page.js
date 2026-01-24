@@ -3,7 +3,7 @@ import { Features } from '@/components/home/Features'
 import { CTA } from '@/components/home/CTA'
 import FeaturedCourses from '@/components/home/FeaturedCourses'
 import DirectorsNote from '@/components/home/DirectorsNote'
-import Instructors from '@/components/home/Instructors'
+// import Instructors from '@/components/home/Instructors'
 import Testimonials from '@/components/home/Testimonials'
 import { getSiteContent } from '@/services/siteContentService'
 import { PromoCarousel } from '@/components/home/PromoCarousel'
@@ -26,7 +26,7 @@ export default async function Home() {
       <FeaturedCourses content={serializedContent.featuredCourses} />
       <Features content={serializedContent.features} />
       <DirectorsNote content={serializedContent.directorsNote} />
-      <Instructors content={serializedContent.instructors} />
+      {/* <Instructors content={serializedContent.instructors} /> */}
       <Testimonials content={serializedContent.testimonials} />
       <CTA content={serializedContent.cta} />
     </main>

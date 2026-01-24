@@ -14,7 +14,7 @@ export default function InstructorsPage() {
     return (
         <div className="flex flex-col min-h-screen bg-slate-50 dark:bg-background transition-colors duration-500">
             {/* --- Hero Section --- */}
-            <section className="relative pt-32 pb-12 lg:pb-20 overflow-hidden bg-white dark:bg-[#0B1120]">
+            <section className="relative pt-12 md:pt-32 pb-12 lg:pb-20 overflow-hidden bg-white dark:bg-[#0B1120]">
                 <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] dark:bg-[radial-gradient(#1f2937_1px,transparent_1px)] [background-size:20px_20px] opacity-50 dark:opacity-20 pointer-events-none"></div>
                 <div className="max-w-7xl w-full px-4 mx-auto relative z-10 text-center">
                     <ScrollAnimationWrapper variant="fadeUp">
@@ -33,7 +33,7 @@ export default function InstructorsPage() {
             </section>
 
             {/* --- Director Spotlight Section --- */}
-            <section className="py-12 lg:py-20 px-4">
+            <section className="pb-8 md:py-20 px-4">
                 <div className="max-w-6xl mx-auto">
                     <ScrollAnimationWrapper variant="fadeUp">
                         {/* Profile Card Container */}
