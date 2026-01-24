@@ -31,6 +31,10 @@ export default async function CoursesPage({ searchParams }) {
 
     const { courses, pagination } = await courseService.listCourses(filters, { page, limit })
 
+    // Serialize Mongoose documents to plain objects for client components
+    const serializedCourses = JSON.parse(JSON.stringify(courses))
+    const serializedPagination = JSON.parse(JSON.stringify(pagination))
+
     return (
         <div className="max-w-7xl w-full mx-auto px-4 py-8 min-h-screen">
             <ScrollAnimationWrapper variant="fadeUp">
@@ -44,10 +48,10 @@ export default async function CoursesPage({ searchParams }) {
                 <CourseFilters />
             </ScrollAnimationWrapper>
 
-            {courses.length > 0 ? (
+            {serializedCourses.length > 0 ? (
                 <>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                        {courses.map((course, index) => (
+                        {serializedCourses.map((course, index) => (
                             <ScrollAnimationWrapper
                                 key={course._id}
                                 variant="blurSlideUp"
@@ -74,10 +78,10 @@ export default async function CoursesPage({ searchParams }) {
                         )}
 
                         <span className="text-sm font-medium">
-                            Page {pagination.page} of {pagination.pages}
+                            Page {serializedPagination.page} of {serializedPagination.pages}
                         </span>
 
-                        {page < pagination.pages ? (
+                        {page < serializedPagination.pages ? (
                             <Button variant="outline" asChild>
                                 <Link href={{ query: { ...params, page: page + 1 } }}>
                                     Next <ChevronRight className="w-4 h-4 ml-2" />

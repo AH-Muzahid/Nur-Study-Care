@@ -130,7 +130,7 @@ export function PromoCarousel({ content }) {
 
                     {/* Left Side (79vw) - Main Active Carousel */}
                     <div
-                        className="relative w-[78vw] md:w-[79vw] h-full rounded-xl md:rounded-2xl overflow-hidden shadow-2xl"
+                        className="relative w-[78vw] md:w-[80vw] h-full rounded-xl md:rounded-2xl overflow-hidden shadow-2xl"
                         ref={emblaRef}
                     >
                         <div className="flex h-full select-none">

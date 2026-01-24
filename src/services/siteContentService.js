@@ -223,11 +223,41 @@ export async function getSiteContent() {
         return acc
     }, {})
 
+    // Fetch real featured courses from database
+    let featuredCoursesContent = dbContent.featuredCourses || defaultContent.featuredCourses
+
+    try {
+        const { courseService } = await import('@/services/courseService')
+        const featuredCourses = await courseService.getFeaturedCourses()
+
+        if (featuredCourses && featuredCourses.length > 0) {
+            // Use real featured courses
+            featuredCoursesContent = {
+                title: dbContent.featuredCourses?.title || defaultContent.featuredCourses.title,
+                description: dbContent.featuredCourses?.description || defaultContent.featuredCourses.description,
+                items: featuredCourses.map(course => ({
+                    _id: course._id,
+                    title: course.title,
+                    description: course.description,
+                    fee: course.fee,
+                    duration: course.duration,
+                    subject: course.subject,
+                    thumbnail: course.thumbnail,
+                    batches: course.batches,
+                    level: course.level,
+                }))
+            }
+        }
+    } catch (error) {
+        console.error("Failed to fetch featured courses:", error.message)
+        // Fall back to default/DB content
+    }
+
     return {
         hero: dbContent.hero || defaultContent.hero,
         features: dbContent.features || defaultContent.features,
         cta: dbContent.cta || defaultContent.cta,
-        featuredCourses: dbContent.featuredCourses || defaultContent.featuredCourses,
+        featuredCourses: featuredCoursesContent,
         directorsNote: dbContent.directorsNote || defaultContent.directorsNote,
         instructors: dbContent.instructors || defaultContent.instructors,
         testimonials: dbContent.testimonials || defaultContent.testimonials,

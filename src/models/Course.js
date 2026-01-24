@@ -70,6 +70,10 @@ const CourseSchema = new mongoose.Schema(
             default: CourseStatus.DRAFT,
         },
         thumbnail: String,
+        featured: {
+            type: Boolean,
+            default: false,
+        },
     },
     {
         timestamps: true,

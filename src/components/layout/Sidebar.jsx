@@ -1,5 +1,7 @@
 'use client'
 
+import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
 import { useAuthStore } from '@/store/authStore'
 import { cn } from '@/lib/utils'
@@ -36,9 +38,37 @@ export function Sidebar({ isOpen, onClose }) {
                     isOpen ? 'translate-x-0' : '-translate-x-full'
                 )}
             >
+                {/* Logo - Desktop */}
+                <div className="hidden lg:flex h-16 items-center gap-2.5 border-b px-4">
+                    <div className="relative h-10 w-10">
+                        <Image
+                            src="/logo.png"
+                            alt="NSC Logo"
+                            width={40}
+                            height={40}
+                            className="h-full w-full object-contain dark:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]"
+                            unoptimized
+                        />
+                    </div>
+                    <div className="flex flex-col">
+                        <span className="text-lg font-bold font-heading">NSC</span>
+                        <span className="text-xs text-muted-foreground">Dashboard</span>
+                    </div>
+                </div>
+
                 {/* Close button for mobile */}
-                <div className="flex h-16 items-center justify-between border-b px-4 lg:hidden">
-                    <span className="text-lg font-semibold">Menu</span>
+                <div className="flex h-16 items-center gap-2.5 border-b px-4 lg:hidden">
+                    <div className="relative h-8 w-8">
+                        <Image
+                            src="/logo.png"
+                            alt="NSC Logo"
+                            width={32}
+                            height={32}
+                            className="h-full w-full object-contain dark:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]"
+                            unoptimized
+                        />
+                    </div>
+                    <span className="flex-1 text-lg font-bold">NSC</span>
                     <Button variant="ghost" size="icon" onClick={onClose}>
                         <X className="h-6 w-6" />
                     </Button>

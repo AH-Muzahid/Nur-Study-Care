@@ -30,8 +30,11 @@ export default async function CourseDetailsPage({ params }) {
         notFound()
     }
 
+    // Serialize Mongoose document to plain object for client components
+    const serializedCourse = JSON.parse(JSON.stringify(course))
+
     // Mock data if missing
-    const features = course.features || [
+    const features = serializedCourse.features || [
         "Live Interactive Classes",
         "HD Recorded Video Lessons",
         "PDF Lecture Sheets & Notes",
@@ -58,10 +61,10 @@ export default async function CourseDetailsPage({ params }) {
                     <div className="max-w-4xl">
                         <div className="flex flex-wrap items-center gap-3 mb-6 animate-fade-in-up">
                             <Badge variant="secondary" className="bg-indigo-500/20 text-indigo-200 border-indigo-500/30 hover:bg-indigo-500/30 px-3 py-1">
-                                {course.level}
+                                {serializedCourse.level}
                             </Badge>
                             <Badge variant="outline" className="border-slate-600 text-slate-300">
-                                {course.subject}
+                                {serializedCourse.subject}
                             </Badge>
                             <div className="flex items-center gap-1.5 text-yellow-400 text-sm font-medium">
                                 <Star className="w-4 h-4 fill-current" />
@@ -71,11 +74,11 @@ export default async function CourseDetailsPage({ params }) {
                         </div>
 
                         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-heading mb-6 leading-tight text-white drop-shadow-sm">
-                            {course.title}
+                            {serializedCourse.title}
                         </h1>
 
                         <p className="text-xl text-slate-300 mb-8 max-w-2xl leading-relaxed">
-                            {course.description}
+                            {serializedCourse.description}
                         </p>
 
                         <div className="flex flex-wrap items-center gap-y-4 gap-x-8 text-sm font-medium text-slate-300">
@@ -89,7 +92,7 @@ export default async function CourseDetailsPage({ params }) {
                                 <div className="p-2 rounded-full bg-slate-800/50 backdrop-blur-sm border border-slate-700">
                                     <Clock className="w-5 h-5 text-emerald-400" />
                                 </div>
-                                <span>{course.duration} Months Duration</span>
+                                <span>{serializedCourse.duration} Months Duration</span>
                             </div>
                             <div className="flex items-center gap-2.5">
                                 <div className="p-2 rounded-full bg-slate-800/50 backdrop-blur-sm border border-slate-700">
@@ -122,7 +125,7 @@ export default async function CourseDetailsPage({ params }) {
                                         <span className="text-slate-600 dark:text-slate-300">{feature}</span>
                                     </div>
                                 ))}
-                                {course.syllabus && course.syllabus.map((item, i) => (
+                                {serializedCourse.syllabus && serializedCourse.syllabus.map((item, i) => (
                                     <div key={`syllabus-${i}`} className="flex items-start gap-3">
                                         <div className="mt-1 min-w-5">
                                             <CheckCircle2 className="w-5 h-5 text-emerald-500" />
@@ -146,7 +149,7 @@ export default async function CourseDetailsPage({ params }) {
                                         <div className="bg-slate-50 dark:bg-slate-800/50 p-4 flex justify-between items-center font-medium cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
                                             <div className="flex items-center gap-3">
                                                 <span className="text-slate-400 font-normal">Module 0{module}</span>
-                                                <span>Introduction to {course.subject} - Part {module}</span>
+                                                <span>Introduction to {serializedCourse.subject} - Part {module}</span>
                                             </div>
                                             <span className="text-xs text-slate-500 bg-white dark:bg-slate-900 px-2 py-1 rounded border">4 Lectures • 45m</span>
                                         </div>
@@ -165,14 +168,14 @@ export default async function CourseDetailsPage({ params }) {
                                 <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-4 border-slate-100 dark:border-slate-800 relative bg-slate-200">
                                     {/* Placeholder Avatar */}
                                     <div className="absolute inset-0 flex items-center justify-center text-4xl font-bold text-slate-400">
-                                        {course.teacher?.userId?.name?.charAt(0) || 'T'}
+                                        {serializedCourse.teacher?.userId?.name?.charAt(0) || 'T'}
                                     </div>
                                 </div>
                                 <div className="flex-1">
                                     <h3 className="font-bold text-xl text-slate-900 dark:text-white mb-2">
-                                        {course.teacher?.userId?.name || 'Expert Instructor'}
+                                        {serializedCourse.teacher?.userId?.name || 'Expert Instructor'}
                                     </h3>
-                                    <p className="text-indigo-600 font-medium mb-3">Senior Faculty, {course.subject}</p>
+                                    <p className="text-indigo-600 font-medium mb-3">Senior Faculty, {serializedCourse.subject}</p>
                                     <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-4">
                                         An experienced educator with over 10 years of teaching expertise. Passionate about simplifying complex concepts and helping students achieve their academic best.
                                     </p>
@@ -192,10 +195,10 @@ export default async function CourseDetailsPage({ params }) {
                             <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
                                 {/* Video/Thumbnail Placeholder */}
                                 <div className="aspect-video bg-slate-800 relative group cursor-pointer overflow-hidden">
-                                    {course.thumbnail && (
+                                    {serializedCourse.thumbnail && (
                                         <Image
-                                            src={course.thumbnail}
-                                            alt={course.title}
+                                            src={serializedCourse.thumbnail}
+                                            alt={serializedCourse.title}
                                             fill
                                             className="object-cover opacity-80 group-hover:opacity-60 transition-opacity"
                                         />
@@ -213,10 +216,10 @@ export default async function CourseDetailsPage({ params }) {
                                 <div className="p-6 md:p-8">
                                     <div className="flex items-end gap-3 mb-6">
                                         <span className="text-4xl font-bold text-slate-900 dark:text-white">
-                                            ৳{course.fee.toLocaleString()}
+                                            ৳{serializedCourse.fee.toLocaleString()}
                                         </span>
                                         <span className="text-lg text-slate-400 line-through mb-1.5">
-                                            ৳{(course.fee * 1.25).toLocaleString()}
+                                            ৳{(serializedCourse.fee * 1.25).toLocaleString()}
                                         </span>
                                         <span className="text-sm font-bold text-rose-500 mb-2">20% OFF</span>
                                     </div>

@@ -153,4 +153,25 @@ export const courseService = {
             options
         )
     },
+
+    async toggleFeatured(id) {
+        const course = await courseRepository.findById(id)
+        if (!course) {
+            throw new Error('Course not found')
+        }
+
+        // If setting to featured, check if we already have 3 featured courses
+        if (!course.featured) {
+            const featuredCount = await courseRepository.countFeatured()
+            if (featuredCount >= 3) {
+                throw new Error('Maximum 3 courses can be featured. Please unfeature another course first.')
+            }
+        }
+
+        return await courseRepository.update(id, { featured: !course.featured })
+    },
+
+    async getFeaturedCourses() {
+        return await courseRepository.findFeatured()
+    },
 }

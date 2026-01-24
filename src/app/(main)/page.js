@@ -16,16 +16,19 @@ export const metadata = {
 export default async function Home() {
   const content = await getSiteContent()
 
+  // Serialize Mongoose documents to plain objects for client components
+  const serializedContent = JSON.parse(JSON.stringify(content))
+
   return (
     <main className="min-h-screen">
-      <Hero content={content.hero} />
-      <PromoCarousel content={content.promoCarousel} />
-      <Features content={content.features} />
-      <FeaturedCourses content={content.featuredCourses} />
-      <DirectorsNote content={content.directorsNote} />
-      <Instructors content={content.instructors} />
-      <Testimonials content={content.testimonials} />
-      <CTA content={content.cta} />
+      <Hero content={serializedContent.hero} />
+      <PromoCarousel content={serializedContent.promoCarousel} />
+      <FeaturedCourses content={serializedContent.featuredCourses} />
+      <Features content={serializedContent.features} />
+      <DirectorsNote content={serializedContent.directorsNote} />
+      <Instructors content={serializedContent.instructors} />
+      <Testimonials content={serializedContent.testimonials} />
+      <CTA content={serializedContent.cta} />
     </main>
   )
 }

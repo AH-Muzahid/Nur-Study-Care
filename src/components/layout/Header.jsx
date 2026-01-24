@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { useRouter, usePathname } from 'next/navigation'
 import { useTheme } from 'next-themes'
 import { Button } from '@/components/ui/button'
@@ -109,8 +110,16 @@ export function Header() {
                     <nav className="flex items-center justify-between h-20">
                         {/* Logo */}
                         <Link href="/" className="flex items-center gap-2.5 group relative z-10">
-                            <div className="bg-gradient-to-br from-primary-600 to-primary-700 p-2.5 rounded-2xl text-white group-hover:shadow-xl group-hover:shadow-primary-500/20 group-hover:scale-105 transition-all duration-300">
-                                <GraduationCap className="h-6 w-6" />
+                            <div className="relative h-12 w-12 group-hover:scale-105 transition-all duration-300">
+                                <Image
+                                    src="/logo.png"
+                                    alt="Nur Study Care Logo"
+                                    width={48}
+                                    height={48}
+                                    className="h-full w-full object-contain dark:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]"
+                                    priority
+                                    unoptimized
+                                />
                             </div>
                             <span className="text-xl lg:text-2xl font-bold font-heading bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 dark:from-white dark:via-gray-100 dark:to-white bg-clip-text text-transparent">
                                 NurStudyCare

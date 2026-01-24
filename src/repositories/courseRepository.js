@@ -101,4 +101,20 @@ export const courseRepository = {
         const nextNumber = String(count + 1).padStart(4, '0')
         return `CRS-${year}-${nextNumber}`
     },
+
+    async countFeatured() {
+        await connectDB()
+        return await Course.countDocuments({ featured: true })
+    },
+
+    async findFeatured() {
+        await connectDB()
+        return await Course.find({ featured: true, status: 'ACTIVE' })
+            .populate({
+                path: 'teacher',
+                populate: { path: 'userId', select: 'name email' }
+            })
+            .limit(3)
+            .sort({ createdAt: -1 })
+    },
 }

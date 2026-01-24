@@ -22,7 +22,8 @@ import {
     MoreVertical,
     Eye,
     BookOpen,
-    Loader2
+    Loader2,
+    Star
 } from 'lucide-react'
 import {
     DropdownMenu,
@@ -62,6 +63,50 @@ export default function AdminCoursesPage() {
         e.preventDefault()
         setPagination(prev => ({ ...prev, page: 1 }))
         fetchCourses()
+    }
+
+    const toggleFeatured = async (courseId, currentStatus) => {
+        // Optimistic update - instantly update UI
+        setCourses(prevCourses =>
+            prevCourses.map(course =>
+                course._id === courseId
+                    ? { ...course, featured: !course.featured }
+                    : course
+            )
+        )
+
+        try {
+            const res = await fetch(`/api/courses/${courseId}/featured`, {
+                method: 'PATCH',
+            })
+            const data = await res.json()
+
+            if (res.ok) {
+                toast.success(data.message)
+                // Refresh to get accurate data from server
+                fetchCourses()
+            } else {
+                // Revert optimistic update on error
+                setCourses(prevCourses =>
+                    prevCourses.map(course =>
+                        course._id === courseId
+                            ? { ...course, featured: !course.featured }
+                            : course
+                    )
+                )
+                toast.error(data.error || 'Failed to update featured status')
+            }
+        } catch (error) {
+            // Revert optimistic update on error
+            setCourses(prevCourses =>
+                prevCourses.map(course =>
+                    course._id === courseId
+                        ? { ...course, featured: !course.featured }
+                        : course
+                )
+            )
+            toast.error('Failed to update featured status')
+        }
     }
 
     const getStatusBadge = (status) => {
@@ -124,6 +169,7 @@ export default function AdminCoursesPage() {
                                         <TableHead>Fee</TableHead>
                                         <TableHead>Status</TableHead>
                                         <TableHead>Batches</TableHead>
+                                        <TableHead>Featured</TableHead>
                                         <TableHead className="text-right">Actions</TableHead>
                                     </TableRow>
                                 </TableHeader>
@@ -144,6 +190,18 @@ export default function AdminCoursesPage() {
                                             <TableCell>{getStatusBadge(course.status)}</TableCell>
                                             <TableCell>
                                                 <Badge variant="secondary">{course.batches?.length || 0} Batches</Badge>
+                                            </TableCell>
+                                            <TableCell>
+                                                <Button
+                                                    variant="ghost"
+                                                    size="icon"
+                                                    onClick={() => toggleFeatured(course._id, course.featured)}
+                                                    className="h-8 w-8"
+                                                >
+                                                    <Star
+                                                        className={`h-4 w-4 ${course.featured ? 'fill-yellow-400 text-yellow-400' : 'text-gray-400'}`}
+                                                    />
+                                                </Button>
                                             </TableCell>
                                             <TableCell className="text-right">
                                                 <DropdownMenu>

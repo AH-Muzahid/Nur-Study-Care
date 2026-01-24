@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from 'react'
 import { GraduationCap, Users, Video, Award, TrendingUp, PlayCircle, Star, ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { ScrollAnimationWrapper } from '@/components/ui/scroll-animation'
+import { useRouter } from 'next/navigation'
 
 // Mapping labels to icons
 const iconMap = {
@@ -73,6 +74,7 @@ const Counter = ({ value }) => {
 }
 
 export function Hero({ content }) {
+    const router = useRouter()
     const {
         badge = "Admission Going On",
         title = "Unlock Your Potential with",
@@ -84,7 +86,7 @@ export function Hero({ content }) {
     return (
         <div className="relative flex flex-col items-center">
             {/* Hero Section - Theme Responsive */}
-            <section className="relative w-full bg-white dark:bg-[#0B1120] pt-20 pb-28 lg:pt-32 lg:pb-40 overflow-hidden transition-colors duration-300">
+            <section className="relative w-full bg-white dark:bg-[#0B1120] pt-16 pb-28 lg:pt-24 lg:pb-40 overflow-hidden transition-colors duration-300">
                 {/* Background Pattern - Adaptive */}
                 <div className="absolute inset-0 opacity-[0.4] dark:opacity-[0.15]">
                     <div className="absolute inset-0" style={{
@@ -122,47 +124,52 @@ export function Hero({ content }) {
 
                         {/* Buttons - Adaptive */}
                         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                            <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white px-8 h-12 rounded-lg text-base font-semibold transition-all duration-300 shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40">
-                                Get Started Free <ArrowRight className="ml-2 h-4 w-4" />
+                            <Button
+                                onClick={() => router.push('/courses')}
+                                size="lg" className="bg-orange-500 hover:bg-orange-600 text-white px-8 h-12 rounded-lg text-base font-semibold transition-all duration-300 shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40">
+                                Explore courses<ArrowRight className="ml-2 h-4 w-4" />
                             </Button>
-                            <Button size="lg" variant="outline" className="border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-gray-800/50 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 px-8 h-12 rounded-lg text-base font-semibold backdrop-blur-sm">
-                                Live Demo
+                            <Button href="https://www.youtube.com/@nurstudycare" target="_blank" size="lg" variant="outline" className="border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-gray-800/50 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 px-8 h-12 rounded-lg text-base font-semibold backdrop-blur-sm">
+                                View Demo
                             </Button>
                         </div>
                     </ScrollAnimationWrapper>
                 </div>
             </section>
 
-            {/* Floating Stats Card - Sleek & Compact (Adaptive) */}
-            <div className="w-full max-w-6xl px-4 -mt-16 relative z-20 pb-16">
-                <ScrollAnimationWrapper variant="fadeUp" delay={0.3}>
-                    <div className="bg-white/95 dark:bg-gray-900/95 backdrop-blur-md rounded-2xl shadow-xl shadow-blue-900/5 dark:shadow-black/30 border border-white/40 dark:border-gray-700/30 p-8">
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:divide-x divide-gray-100 dark:divide-gray-800">
+            {/* Dashboard Style Stats Strip - Clean & Professional */}
+            <div className="w-full max-w-7xl px-4 -mt-16 relative z-20 pb-2">
+                <ScrollAnimationWrapper variant="fadeUp" delay={0.2}>
+                    <div className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-gray-200/50 dark:border-gray-800/50 rounded-2xl shadow-xl shadow-gray-200/50 dark:shadow-none overflow-hidden">
+                        <div className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-y lg:divide-y-0 divide-gray-100 dark:divide-gray-800">
                             {stats.map((stat, index) => {
                                 const Icon = iconMap[stat.label] || iconMap["default"]
 
-                                // Clean minimal colors - Adaptive
-                                const styles = [
+                                // Modern minimal colors
+                                const colors = [
                                     "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20",
                                     "text-orange-600 dark:text-orange-400 bg-orange-50 dark:bg-orange-900/20",
                                     "text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-900/20",
                                     "text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/20"
                                 ]
-                                const styleClass = styles[index % styles.length]
+                                const colorClass = colors[index % colors.length]
 
                                 return (
-                                    <div key={index} className="flex flex-col items-center text-center px-2 group cursor-default">
-                                        <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-3 ${styleClass} transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3`}>
+                                    <div key={index} className="p-6 flex items-center gap-4 group hover:bg-white/50 dark:hover:bg-gray-800/50 transition-colors duration-300">
+                                        {/* Icon Box */}
+                                        <div className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 ${colorClass} transition-transform duration-300 group-hover:scale-110`}>
                                             <Icon className="h-6 w-6" strokeWidth={2} />
                                         </div>
 
-                                        <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-1 tracking-tight tabular-nums">
-                                            <Counter value={stat.value} />
-                                        </h3>
-
-                                        <p className="text-xs font-semibold tracking-wider text-gray-500 uppercase">
-                                            {stat.label}
-                                        </p>
+                                        {/* Content */}
+                                        <div className="flex flex-col">
+                                            <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white leading-none tracking-tight tabular-nums">
+                                                <Counter value={stat.value} />
+                                            </h3>
+                                            <p className="text-sm font-medium text-gray-500 dark:text-gray-400 mt-1">
+                                                {stat.label}
+                                            </p>
+                                        </div>
                                     </div>
                                 )
                             })}
