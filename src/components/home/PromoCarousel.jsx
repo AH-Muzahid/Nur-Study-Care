@@ -126,7 +126,7 @@ export function PromoCarousel({ content }) {
     return (
         <section className="max-w-7xl mx-auto flex justify-center items-center py-4 md:py-6 overflow-hidden">
             <ScrollAnimationWrapper variant="fadeUp" className="w-full">
-                <div className="flex w-full px-[2vw] gap-[1vw] md:gap-[0.5vw] h-[180px] md:h-[320px] lg:h-[430px]">
+                <div className="flex w-full px-[2vw] gap-[1vw] md:gap-[0.5vw] h-[200px] md:h-[350px] lg:h-[450px]">
 
                     {/* Left Side (79vw) - Main Active Carousel */}
                     <div

@@ -102,7 +102,7 @@ export function Header() {
                 className={cn(
                     'fixed top-0 left-0 right-0 z-50 transition-all duration-500',
                     isScrolled
-                        ? 'bg-white/80 dark:bg-gray-950/80 backdrop-blur-md border-b border-gray-200/50 dark:border-gray-800/50'
+                        ? 'bg-white/80 dark:bg-gray-950/80 backdrop-blur-md shadow-sm'
                         : 'bg-transparent'
                 )}
             >
@@ -127,7 +127,7 @@ export function Header() {
                         </Link>
 
                         {/* Desktop Navigation - Pill Style */}
-                        <div className="hidden lg:flex items-center gap-1 bg-gray-100/80 dark:bg-gray-800/80 backdrop-blur-md p-1.5 rounded-full border border-gray-200/50 dark:border-gray-700/50 shadow-sm">
+                        <div className="hidden lg:flex items-center gap-1 bg-gray-100/80 dark:bg-gray-800/80 backdrop-blur-md p-1.5 rounded-full border-none shadow-sm">
                             {navItems.map((item) => (
                                 <Link
                                     key={item.href}
@@ -135,7 +135,7 @@ export function Header() {
                                     className={cn(
                                         "px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300",
                                         pathname === item.href
-                                            ? "bg-white dark:bg-gray-900 text-primary-600 dark:text-primary-400 shadow-md"
+                                            ? "bg-primary-600 text-white shadow-md hover:bg-primary-700"
                                             : "text-gray-800 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white hover:bg-white/70 dark:hover:bg-gray-900/70"
                                     )}
                                 >

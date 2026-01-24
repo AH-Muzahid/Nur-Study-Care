@@ -120,7 +120,7 @@ export default function ContactPage() {
             {/* --- Map Section --- */}
             <section className="h-[300px] md:h-[500px] w-full bg-gray-200 dark:bg-gray-800 relative z-0">
                 <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14436.42582845232!2d88.5756385!3d25.1264858!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39fc93b6e7d6b3b5%3A0x6d9f3b3b3b3b3b3b!2sSapahar%2C%20Naogaon!5e0!3m2!1sen!2sbd!4v1700000000000!5m2!1sen!2sbd"
+                    src="https://maps.google.com/maps?q=25.128663,88.587952&hl=bn&z=16&output=embed"
                     className="w-full h-full border-0"
                     allowFullScreen=""
                     loading="lazy"

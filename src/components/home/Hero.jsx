@@ -94,8 +94,10 @@ export function Hero({ content }) {
                     }}></div>
                 </div>
 
+
                 {/* Glow Effects - Adaptive */}
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-full bg-blue-100/50 dark:bg-blue-500/20 blur-3xl rounded-full pointer-events-none"></div>
+
 
                 <div className="relative z-10 max-w-7xl mx-auto px-4 text-center">
                     <ScrollAnimationWrapper variant="fadeUp">

@@ -17,7 +17,7 @@ export default function FeaturedCourses({ content }) {
         <section className="py-5 md:py-10 bg-background relative z-10">
             <div className="max-w-7xl w-full px-4 mx-auto">
                 <ScrollAnimationWrapper variant="fadeUp">
-                    <div className="text-center mb-16 max-w-3xl mx-auto space-y-4">
+                    <div className="text-center mb-5 md:mb-16 max-w-3xl mx-auto space-y-4">
                         <h2 className="text-3xl md:text-4xl font-bold tracking-tight font-heading bg-clip-text text-transparent bg-gradient-to-r from-primary to-indigo-600 dark:to-indigo-400">
                             {title}
                         </h2>
