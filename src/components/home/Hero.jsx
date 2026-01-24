@@ -84,9 +84,9 @@ export function Hero({ content }) {
     return (
         <div className="relative flex flex-col items-center">
             {/* Hero Section - Theme Responsive */}
-            <section className="relative w-full bg-white dark:bg-[#0B1120] pt-16 pb-28 lg:pt-24 lg:pb-40 overflow-hidden transition-colors duration-300">
+            <section className="relative w-full bg-white dark:bg-[#0B1120] pt-16 pb-28 lg:pt-24 lg:pb-40 overflow-hidden transition-colors duration-500 ease-in-out">
                 {/* Background Pattern - Adaptive */}
-                <div className="absolute inset-0 opacity-[0.4] dark:opacity-[0.15]">
+                <div className="absolute inset-0 opacity-[0.4] dark:opacity-[0.15] transition-opacity duration-500">
                     <div className="absolute inset-0" style={{
                         backgroundImage: 'radial-gradient(var(--pattern-color) 1px, transparent 1px)',
                         backgroundSize: '32px 32px',
@@ -95,7 +95,7 @@ export function Hero({ content }) {
                 </div>
 
                 {/* Glow Effects - Adaptive */}
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-full bg-blue-100/50 dark:bg-blue-500/20 blur-[100px] rounded-full pointer-events-none mix-blend-multiply dark:mix-blend-normal"></div>
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-full bg-blue-100/50 dark:bg-blue-500/20 blur-3xl rounded-full pointer-events-none"></div>
 
                 <div className="relative z-10 max-w-7xl mx-auto px-4 text-center">
                     <ScrollAnimationWrapper variant="fadeUp">
@@ -138,7 +138,7 @@ export function Hero({ content }) {
             {/* Dashboard Style Stats Strip - Clean & Professional */}
             <div className="w-full max-w-7xl px-4 -mt-16 relative z-20 pb-2">
                 <ScrollAnimationWrapper variant="fadeUp" delay={0.2}>
-                    <div className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-gray-200/50 dark:border-gray-800/50 rounded-2xl shadow-xl shadow-gray-200/50 dark:shadow-none overflow-hidden">
+                    <div className="bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 rounded-2xl shadow-xl shadow-gray-200/50 dark:shadow-none overflow-hidden transition-all duration-500">
                         <div className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-y lg:divide-y-0 divide-gray-100 dark:divide-gray-800">
                             {stats.map((stat, index) => {
                                 const Icon = iconMap[stat.label] || iconMap["default"]
