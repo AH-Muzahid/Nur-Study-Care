@@ -112,11 +112,11 @@ export function Header() {
                         <Link href="/" className="flex items-center gap-2.5 group relative z-10">
                             <div className="relative h-12 w-12 group-hover:scale-105 transition-all duration-300">
                                 <Image
-                                    src="/logo.png"
+                                    src="/nsc-logo.png"
                                     alt="Nur Study Care Logo"
                                     width={48}
                                     height={48}
-                                    className="h-full w-full object-contain dark:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]"
+                                    className="h-full w-full object-contain"
                                     priority
                                     unoptimized
                                 />

@@ -3,7 +3,6 @@ import { useEffect, useState, useRef } from 'react'
 import { GraduationCap, Users, Video, Award, TrendingUp, PlayCircle, Star, ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { ScrollAnimationWrapper } from '@/components/ui/scroll-animation'
-import { useRouter } from 'next/navigation'
 
 // Mapping labels to icons
 const iconMap = {
@@ -74,7 +73,6 @@ const Counter = ({ value }) => {
 }
 
 export function Hero({ content }) {
-    const router = useRouter()
     const {
         badge = "Admission Going On",
         title = "Unlock Your Potential with",

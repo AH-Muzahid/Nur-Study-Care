@@ -38,7 +38,7 @@ export async function createSession(user) {
         // Always use secure in production, and usually fine in modern dev (localhost)
         // Check if using HTTPS or standard localhost
         secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict', // CSRF protection
+        sameSite: 'lax', // Correct for top-level navigations
         maxAge: 7 * 24 * 60 * 60, // 7 days (consider lowering/using refresh tokens)
         path: '/',
     })

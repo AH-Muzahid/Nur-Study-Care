@@ -10,6 +10,13 @@ export async function POST(request) {
         const clientId = getClientIdentifier(request)
         const rateLimitCheck = checkRateLimit(clientId, 'login')
 
+        // Check Env Vars
+        console.log('Login attempt. Env Check:', {
+            hasMongo: !!process.env.MONGODB_URI,
+            hasJWT: !!process.env.JWT_SECRET,
+            nodeEnv: process.env.NODE_ENV
+        })
+
         if (!rateLimitCheck.allowed) {
             return NextResponse.json(
                 {

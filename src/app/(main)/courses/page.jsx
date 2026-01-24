@@ -29,11 +29,23 @@ export default async function CoursesPage({ searchParams }) {
         ...(subject && { subject })
     }
 
-    const { courses, pagination } = await courseService.listCourses(filters, { page, limit })
+    let courses = []
+    let pagination = { page: 1, limit: 9, total: 0, pages: 1 }
+
+    try {
+        const result = await courseService.listCourses(filters, { page, limit })
+        courses = result.courses
+        pagination = result.pagination
+    } catch (error) {
+        console.error('Failed to fetch courses:', error)
+        // We can render a fallback UI here or just specific error message
+        // For now, let's allow the page to render with empty courses and show the "No courses found" state
+    }
 
     // Serialize Mongoose documents to plain objects for client components
-    const serializedCourses = JSON.parse(JSON.stringify(courses))
-    const serializedPagination = JSON.parse(JSON.stringify(pagination))
+    // Only parse if we have valid data, otherwise use defaults
+    const serializedCourses = courses ? JSON.parse(JSON.stringify(courses)) : []
+    const serializedPagination = pagination ? JSON.parse(JSON.stringify(pagination)) : { page: 1, pages: 1 }
 
     return (
         <div className="max-w-7xl w-full mx-auto px-4 py-8 min-h-screen">

@@ -1,3 +1,5 @@
+'use client'
+
 import Image from 'next/image'
 
 export function LoadingScreen({ message = 'Loading...' }) {
@@ -18,7 +20,7 @@ export function LoadingScreen({ message = 'Loading...' }) {
 
                     <div className="relative w-28 h-28 drop-shadow-2xl">
                         <Image
-                            src="/logo.png"
+                            src="/nsc-logo.png"
                             alt="NSC Logo"
                             width={112}
                             height={112}
@@ -29,21 +31,21 @@ export function LoadingScreen({ message = 'Loading...' }) {
                     </div>
                 </div>
 
-                {/* Text and Loader */}
-                <div className="flex flex-col items-center space-y-5">
-                    <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent font-heading tracking-tight animate-gradient">
-                        Nur Study Care
-                    </h2>
+                {/* Modern Loading Bar */}
+                <div className="w-48 h-1.5 bg-gray-200 dark:bg-gray-800 rounded-full overflow-hidden mb-4 relative">
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-indigo-600 animate-loading-bar rounded-full"></div>
+                </div>
 
-                    <div className="flex items-center gap-2">
-                        <div className="h-2 w-2 rounded-full bg-blue-500 animate-bounce [animation-delay:-0.3s] shadow-lg shadow-blue-500/50"></div>
-                        <div className="h-2 w-2 rounded-full bg-indigo-500 animate-bounce [animation-delay:-0.15s] shadow-lg shadow-indigo-500/50"></div>
-                        <div className="h-2 w-2 rounded-full bg-purple-500 animate-bounce shadow-lg shadow-purple-500/50"></div>
-                    </div>
-
-                    <p className="text-xs font-semibold text-slate-400 uppercase tracking-[0.2em] animate-pulse">
+                {/* Text with animated dots */}
+                <div className="flex items-center gap-1">
+                    <span className="text-sm font-medium text-gray-500 dark:text-gray-400 tracking-wider uppercase">
                         {message}
-                    </p>
+                    </span>
+                    <div className="flex gap-1 ml-1">
+                        <span className="w-1 h-1 bg-blue-500 rounded-full animate-bounce [animation-delay:-0.3s]"></span>
+                        <span className="w-1 h-1 bg-blue-500 rounded-full animate-bounce [animation-delay:-0.15s]"></span>
+                        <span className="w-1 h-1 bg-blue-500 rounded-full animate-bounce"></span>
+                    </div>
                 </div>
             </div>
         </div>

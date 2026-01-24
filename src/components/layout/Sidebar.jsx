@@ -42,11 +42,11 @@ export function Sidebar({ isOpen, onClose }) {
                 <div className="hidden lg:flex h-16 items-center gap-2.5 border-b px-4">
                     <div className="relative h-10 w-10">
                         <Image
-                            src="/logo.png"
+                            src="/nsc-logo.png"
                             alt="NSC Logo"
                             width={40}
                             height={40}
-                            className="h-full w-full object-contain dark:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]"
+                            className="h-full w-full object-contain"
                             unoptimized
                         />
                     </div>
@@ -60,11 +60,11 @@ export function Sidebar({ isOpen, onClose }) {
                 <div className="flex h-16 items-center gap-2.5 border-b px-4 lg:hidden">
                     <div className="relative h-8 w-8">
                         <Image
-                            src="/logo.png"
+                            src="/nsc-logo.png"
                             alt="NSC Logo"
                             width={32}
                             height={32}
-                            className="h-full w-full object-contain dark:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]"
+                            className="h-full w-full object-contain"
                             unoptimized
                         />
                     </div>

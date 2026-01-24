@@ -14,7 +14,9 @@ import { LoadingScreen } from '@/components/ui/loading-screen'
 export function AuthProvider({ children }) {
     const [isHydrated, setIsHydrated] = useState(() => {
         // Initialize based on current hydration state
-        return typeof window !== 'undefined' && useAuthStore.persist.hasHydrated()
+        // Check if window is defined to avoid server-side errors
+        if (typeof window === 'undefined') return false
+        return useAuthStore.persist.hasHydrated()
     })
 
     // Handle Hydration
