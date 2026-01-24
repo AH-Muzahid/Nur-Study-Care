@@ -135,7 +135,7 @@ export function Header() {
                                     className={cn(
                                         "px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300",
                                         pathname === item.href
-                                            ? "bg-primary-600 text-white shadow-md hover:bg-primary-700"
+                                            ? "bg-blue-600 dark:bg-blue-500 text-white shadow-md hover:bg-blue-700 dark:hover:bg-blue-600"
                                             : "text-gray-800 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white hover:bg-white/70 dark:hover:bg-gray-900/70"
                                     )}
                                 >
