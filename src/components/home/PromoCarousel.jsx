@@ -34,12 +34,12 @@ const SlideItem = React.memo(({ slide, isActive }) => (
 
         <div className="w-full pl-6 md:pl-12 lg:pl-16 pr-4 md:pr-12 relative z-10 pointer-events-none h-full flex flex-col justify-center">
             {/* Badge */}
-            <div className="inline-block px-3 py-1 bg-white/10 backdrop-blur-md border border-white/20 text-[10px] md:text-xs font-bold text-white mb-4 uppercase tracking-wider self-start rounded-full">
+            <div className="inline-block px-3 py-1 bg-white/10 backdrop-blur-sm border border-white/20 text-[10px] md:text-xs font-bold text-white mb-4 uppercase tracking-wider self-start rounded-full">
                 {slide.badge}
             </div>
 
             {/* Title */}
-            <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold text-white uppercase tracking-tight leading-[0.9] drop-shadow-xl font-heading mb-2">
+            <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold text-white uppercase tracking-tight leading-[0.9] shadow-black/20 text-shadow font-heading mb-2">
                 {slide.title}
             </h2>
 
@@ -130,7 +130,7 @@ export function PromoCarousel({ content }) {
 
                     {/* Left Side (79vw) - Main Active Carousel */}
                     <div
-                        className="relative w-[78vw] md:w-[80vw] h-full rounded-xl md:rounded-2xl overflow-hidden shadow-2xl"
+                        className="relative w-[78vw] md:w-[80vw] h-full rounded-xl md:rounded-2xl overflow-hidden shadow-lg"
                         ref={emblaRef}
                     >
                         <div className="flex h-full select-none">
@@ -157,7 +157,7 @@ export function PromoCarousel({ content }) {
 
                     {/* Right Side (18vw) - Always Visible Next Image Preview */}
                     <div
-                        className="relative w-[20vw] h-full rounded-xl md:rounded-2xl overflow-hidden shadow-2xl group cursor-pointer"
+                        className="relative w-[20vw] h-full rounded-xl md:rounded-2xl overflow-hidden shadow-lg group cursor-pointer"
                         onClick={handleNext}
                     >
                         {/* Hover Effect Layer */}
@@ -181,7 +181,7 @@ export function PromoCarousel({ content }) {
 
                             {/* Navigation Arrow Button */}
                             <div className="absolute bottom-2 right-2 md:bottom-4 md:right-4 z-50 transition-transform duration-300 group-hover:scale-110 group-active:scale-95">
-                                <div className="h-6 w-6 md:h-10 md:w-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center hover:bg-white hover:text-black transition-all shadow-lg border border-white/10">
+                                <div className="h-6 w-6 md:h-10 md:w-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white hover:text-black transition-all shadow-lg border border-white/10">
                                     <ArrowRight className="h-3 w-3 md:h-5 md:w-5" />
                                 </div>
                             </div>
