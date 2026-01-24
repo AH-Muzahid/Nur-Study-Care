@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { ScrollAnimationWrapper } from '@/components/ui/scroll-animation'
-import { Phone, Mail, MapPin, Clock, Send, Facebook, Youtube, Globe } from 'lucide-react'
+import { Phone, Mail, MapPin, Clock, Send, Facebook, Youtube, Globe, Users, User } from 'lucide-react'
 
 export const metadata = {
     title: 'যোগাযোগ - নূর স্টাডি কেয়ার',
@@ -16,7 +16,7 @@ export default function ContactPage() {
     return (
         <div className="flex flex-col min-h-screen bg-slate-50 dark:bg-background">
             {/* --- Hero Section --- */}
-            <section className="relative pt-32 pb-20 overflow-hidden bg-white dark:bg-[#0B1120]">
+            <section className="relative pt-20 md:pt-32 pb-20 overflow-hidden bg-white dark:bg-[#0B1120]">
                 <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] opacity-50 dark:opacity-5"></div>
                 <div className="max-w-7xl w-full px-4 mx-auto relative z-10 text-center">
                     <ScrollAnimationWrapper variant="fadeUp">
@@ -87,15 +87,22 @@ export default function ContactPage() {
                                 {/* Social Links */}
                                 <div className="pt-10 border-t border-gray-200 dark:border-gray-800 mt-10">
                                     <h3 className="text-lg font-semibold mb-6">সোশ্যাল মিডিয়া</h3>
-                                    <div className="flex gap-4">
-                                        <Link href="https://www.facebook.com/profile.php?id=61559545551239" target="_blank" className="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center hover:bg-blue-700 transition-colors shadow-lg shadow-blue-600/20">
+                                    <div className="flex gap-4 flex-wrap">
+                                        {/* Page */}
+                                        <Link href="https://www.facebook.com/profile.php?id=61559545551239" target="_blank" title="আমাদের পেজ" className="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center hover:bg-blue-700 transition-colors shadow-lg shadow-blue-600/20">
                                             <Facebook className="w-6 h-6" />
                                         </Link>
-                                        <Link href="https://www.youtube.com/@nurstudycare" target="_blank" className="w-12 h-12 rounded-full bg-red-600 text-white flex items-center justify-center hover:bg-red-700 transition-colors shadow-lg shadow-red-600/20">
-                                            <Youtube className="w-6 h-6" />
+                                        {/* Group */}
+                                        <Link href="https://www.facebook.com/groups/1220500699358757" target="_blank" title="আমাদের গ্রুপ" className="w-12 h-12 rounded-full bg-indigo-600 text-white flex items-center justify-center hover:bg-indigo-700 transition-colors shadow-lg shadow-indigo-600/20">
+                                            <Users className="w-6 h-6" />
                                         </Link>
-                                        <Link href="/" className="w-12 h-12 rounded-full bg-gray-800 dark:bg-gray-700 text-white flex items-center justify-center hover:bg-black transition-colors shadow-lg">
-                                            <Globe className="w-6 h-6" />
+                                        {/* Director */}
+                                        <Link href="https://www.facebook.com/profile.php?id=100082759065197" target="_blank" title="পরিচালক" className="w-12 h-12 rounded-full bg-cyan-600 text-white flex items-center justify-center hover:bg-cyan-700 transition-colors shadow-lg shadow-cyan-600/20">
+                                            <User className="w-6 h-6" />
+                                        </Link>
+                                        {/* YouTube */}
+                                        <Link href="https://www.youtube.com/@nurstudycare" target="_blank" title="ইউটিউব চ্যানেল" className="w-12 h-12 rounded-full bg-red-600 text-white flex items-center justify-center hover:bg-red-700 transition-colors shadow-lg shadow-red-600/20">
+                                            <Youtube className="w-6 h-6" />
                                         </Link>
                                     </div>
                                 </div>

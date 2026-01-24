@@ -91,7 +91,9 @@ export default function AboutPage() {
                                         </blockquote>
                                     </div>
                                     <div>
-                                        <h3 className="text-2xl font-bold font-heading">মোঃ আব্দুন নূর</h3>
+                                        <Link href="https://www.facebook.com/profile.php?id=100082759065197" target="_blank" className="hover:text-cyan-300 transition-colors">
+                                            <h3 className="text-2xl font-bold font-heading">মোঃ আব্দুন নূর</h3>
+                                        </Link>
                                         <p className="text-cyan-200 text-sm tracking-widest uppercase mt-1">পরিচালক ও প্রতিষ্ঠাতা</p>
                                     </div>
                                 </div>
