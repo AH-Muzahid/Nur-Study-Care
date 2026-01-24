@@ -111,7 +111,7 @@ export function Hero({ content }) {
                         </div>
 
                         {/* Massive Headline - Brand Name Dominant */}
-                        <div className="space-y-4 mb-8">
+                        <div className="space-y-4 mb-2 md:mb-8">
                             <span className="text-lg md:text-xl font-medium text-gray-500 dark:text-gray-400 tracking-wider uppercase">
                                 Unlock Your Potential with
                             </span>
