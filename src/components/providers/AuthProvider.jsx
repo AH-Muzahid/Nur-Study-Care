@@ -43,7 +43,7 @@ export function AuthProvider({ children }) {
 
     // Show loading only during initial hydration
     if (!isHydrated) {
-        return <LoadingScreen message="Initializing..." />
+        return <LoadingScreen message="Loading..." />
     }
 
     return <>{children}</>
