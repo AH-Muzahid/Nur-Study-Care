@@ -3,15 +3,15 @@ import SiteContent from '@/models/SiteContent'
 
 const defaultContent = {
     hero: {
-        badge: "২০২৬ শিক্ষাবর্ষে ভর্তি চলছে 🔥",
-        title: "NUR STUDY CARE (NSC)",
-        titleHighlight: "এবার নতুন বছরে, নতুন উদ্যমে",
-        description: "আলহামদুলিল্লাহ, Class-09 এর ভর্তি শুরু। ৬ষ্ঠ থেকে ১০ম শ্রেণির ভর্তি চলছে। কোর্স পেমেন্ট ৮ মাসে ৪০০০ টাকা অথবা প্রতি মাসে ৫০০ টাকা।",
+        badge: "Admission Going On - HSC 2026 Batch",
+        title: "Unlock Your Potential with",
+        titleHighlight: "Nur Study Care",
+        description: "Join the most trusted coaching platform for SSC, HSC, and Admission preparation. Expert teachers, personalized care, and proven results.",
         stats: [
-            { value: "৫০০+", label: "শিক্ষার্থী" },
-            { value: "১০০%", label: "পাসের হার" },
-            { value: "২০+", label: "অভিজ্ঞ শিক্ষক" },
-            { value: "২৪/৭", label: "সাপোর্ট" }
+            { value: "500+", label: "Students Enrolled" },
+            { value: "50+", label: "Video Courses" },
+            { value: "20+", label: "Expert Teachers" },
+            { value: "100%", label: "Success Rate" }
         ]
     },
     promoCarousel: {
@@ -254,7 +254,7 @@ export async function getSiteContent() {
     }
 
     return {
-        hero: dbContent.hero || defaultContent.hero,
+        hero: defaultContent.hero, // forcing new content
         features: dbContent.features || defaultContent.features,
         cta: dbContent.cta || defaultContent.cta,
         featuredCourses: featuredCoursesContent,
