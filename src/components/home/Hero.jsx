@@ -77,61 +77,73 @@ export function Hero({ content }) {
         badge = "Admission Going On",
         title = "Unlock Your Potential with",
         titleHighlight = "Nur Study Care",
-        description = "Join us today for better education.",
         stats = []
     } = content || {}
 
+    const description = "স্বপ্ন ছোঁয়ার এই পথে, NSC আছে তোমার সাথে..."
+
     return (
         <div className="relative flex flex-col items-center">
-            {/* Hero Section - Theme Responsive */}
-            <section className="relative w-full bg-white dark:bg-[#0B1120] pt-16 pb-28 lg:pt-24 lg:pb-40 overflow-hidden transition-colors duration-500 ease-in-out">
-                {/* Background Pattern - Adaptive */}
-                <div className="absolute inset-0 opacity-[0.4] dark:opacity-[0.15] transition-opacity duration-500">
+            {/* Hero Section - Redesigned Premium */}
+            <section className="relative w-full pt-12 md:pt-24 pb-20 md:pb-24 lg:pt-32 lg:pb-32 overflow-hidden">
+                {/* Background Pattern - Restored */}
+                <div className="absolute inset-0 opacity-[0.4] dark:opacity-[0.15] transition-opacity duration-500 z-0 pointer-events-none">
                     <div className="absolute inset-0" style={{
                         backgroundImage: 'radial-gradient(var(--pattern-color) 1px, transparent 1px)',
                         backgroundSize: '32px 32px',
-                        '--pattern-color': 'rgba(59, 130, 246, 0.5)' // Blue-ish for both modes but handled by opacity
+                        '--pattern-color': 'rgba(209, 172, 36, 0.4)' // Using Primary color (Purple) for pattern to match theme, or Blue
                     }}></div>
                 </div>
-
-
-                {/* Glow Effects - Adaptive */}
+                {/* Glow Effect - Restored Original Blueish Pillar */}
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-full bg-blue-100/50 dark:bg-blue-500/20 blur-3xl rounded-full pointer-events-none"></div>
 
-
-                <div className="relative z-10 max-w-7xl mx-auto px-4 text-center">
+                <div className="relative z-10 max-w-5xl mx-auto px-4 text-center">
                     <ScrollAnimationWrapper variant="fadeUp">
-                        {/* Badge - Adaptive */}
-                        <div className="inline-flex items-center justify-center mx-auto mb-8">
-                            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-blue-600 dark:bg-blue-900/30 dark:border-blue-500/30 dark:text-blue-400 text-sm font-semibold backdrop-blur-sm shadow-sm">
-                                <span className="w-2 h-2 rounded-full bg-blue-500 dark:bg-blue-400 animate-pulse"></span>
-                                {badge}
+                        {/* Premium Badge */}
+                        <div className="inline-flex items-center justify-center mb-8">
+                            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 backdrop-blur-md shadow-sm transition-transform hover:scale-105 duration-300">
+                                <span className="relative flex h-3 w-3">
+                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-400 opacity-75"></span>
+                                    <span className="relative inline-flex rounded-full h-3 w-3 bg-primary-500"></span>
+                                </span>
+                                <span className="text-sm font-semibold text-gray-700 dark:text-gray-200 tracking-wide">{badge}</span>
                             </div>
                         </div>
 
-                        {/* Headline - Adaptive */}
-                        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-gray-900 dark:text-white mb-6 leading-[1.1]">
-                            {title} <br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-orange-600 dark:from-orange-400 dark:to-orange-600">
-                                {titleHighlight}
+                        {/* Massive Headline - Brand Name Dominant */}
+                        <div className="space-y-4 mb-8">
+                            <span className="text-lg md:text-xl font-medium text-gray-500 dark:text-gray-400 tracking-wider uppercase">
+                                Unlock Your Potential with
                             </span>
-                        </h1>
+                            <h1 className="text-6xl md:text-8xl lg:text-8xl font-bold tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-gray-900 via-blue-800 to-gray-900 dark:from-white dark:via-blue-200 dark:to-gray-400 drop-shadow-sm font-heading leading-none">
+                                {titleHighlight}
+                            </h1>
+                        </div>
 
-                        {/* Description - Adaptive */}
-                        <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 mb-10 max-w-2xl mx-auto leading-relaxed">
-                            {description}
-                        </p>
+                        {/* Content Card container */}
+                        <div className="bg-white/40 dark:bg-gray-900/40 backdrop-blur-md border border-white/20 dark:border-gray-800 rounded-2xl p-6 md:p-8 mb-10 shadow-lg max-w-3xl mx-auto hover:bg-white/50 dark:hover:bg-gray-900/50 transition-colors duration-300">
+                            <p className="text-xl md:text-2xl font-bold text-primary-700 dark:text-primary-300 mb-6 leading-relaxed">
+                                &quot;{description}&quot;
+                            </p>
+                            <div className="w-24 h-1 bg-gradient-to-r from-transparent via-primary-400 to-transparent rounded-full mx-auto mb-6 opacity-50"></div>
+                            <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed font-medium">
+                                অভিজ্ঞ শিক্ষক মণ্ডলী ও আধুনিক পাঠদান পদ্ধতির সমন্বয়ে আমরা নিশ্চিত করি সেরা প্রস্তুতি।
+                                HSC, SSC এবং অ্যাডমিশন এর জন্য উত্তরবঙ্গের অন্যতম নির্ভরযোগ্য প্রতিষ্ঠান।
+                            </p>
 
-                        {/* Buttons - Adaptive */}
-                        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                            <Button
-                                onClick={() => router.push('/courses')}
-                                size="lg" className="bg-orange-500 hover:bg-orange-600 text-white px-8 h-12 rounded-lg text-base font-semibold transition-all duration-300 shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40">
-                                Explore courses<ArrowRight className="ml-2 h-4 w-4" />
-                            </Button>
-                            <Button href="https://www.youtube.com/@nurstudycare" target="_blank" size="lg" variant="outline" className="border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-gray-800/50 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 px-8 h-12 rounded-lg text-base font-semibold backdrop-blur-sm">
-                                View Demo
-                            </Button>
+                            {/* Action Buttons - Integrated */}
+                            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8 pt-6 border-t border-gray-200/50 dark:border-gray-700/50">
+                                <Button
+                                    onClick={() => router.push('/courses')}
+                                    size="lg" className="h-12 px-8 rounded-xl bg-primary-600 hover:bg-primary-700 text-white text-base font-bold shadow-lg shadow-primary-600/20 hover:shadow-primary-600/40 transition-all duration-300 w-full sm:w-auto">
+                                    Explore Courses <ArrowRight className="ml-2 h-5 w-5" />
+                                </Button>
+                                <Button
+                                    onClick={() => window.open('https://www.youtube.com/@nurstudycare', '_blank')}
+                                    size="lg" variant="outline" className="h-12 px-8 rounded-xl border border-gray-300 dark:border-gray-600 bg-transparent text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 text-base font-semibold w-full sm:w-auto transition-all duration-300">
+                                    <PlayCircle className="mr-2 h-5 w-5" /> Watch Demo
+                                </Button>
+                            </div>
                         </div>
                     </ScrollAnimationWrapper>
                 </div>

@@ -13,7 +13,7 @@ export function Footer() {
                     <div className="space-y-4">
                         <h3 className="text-white text-lg font-semibold">Nur Study Care</h3>
                         <p className="text-sm text-gray-400">
-                            Quality education for HSC, SSC, and Admission preparation with experienced teachers and modern facilities.
+                            স্বপ্ন ছোঁয়ার এই পথে, NSC আছে তোমার সাথে...
                         </p>
                         <div className="flex space-x-4">
                             <Link href="#" className="hover:text-blue-400 transition-colors">

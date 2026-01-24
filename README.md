@@ -369,7 +369,7 @@ The following files were removed during NextAuth migration:
 ```
 
 **Total Lines Removed:** ~2000+ lines of custom JWT code
-│   │   │   │   ├── classes/page.js
+
 │   │   │   │   └── students/page.js
 │   │   │   ├── admin/
 │   │   │   │   ├── dashboard/page.js
@@ -501,7 +501,6 @@ The following files were removed during NextAuth migration:
 
 ## 🔧 Architecture & Key Features
 
-### **NextAuth v5 Authentication System**
 
 #### Edge Runtime Compatible Pattern
 
@@ -680,7 +679,6 @@ app/
 
 #### next-themes Integration
 
-```javascript
 // app/layout.js
 import { ThemeProvider } from 'next-themes'
 
@@ -692,8 +690,6 @@ import { ThemeProvider } from 'next-themes'
   </body>
 </html>
 ```
-
-```javascript
 // components/layout/Header.jsx
 import { useTheme } from 'next-themes'
 import { Sun, Moon } from 'lucide-react'
